@@ -31,4 +31,19 @@ export interface FAQItem {
   answer: string;
 }
 
+export interface TeamMember {
+  id: number;
+  name: string;
+  role: string;
+  specialty: string;
+  bio: string;
+  image: string;
+}
+
+export interface ChecklistRoom {
+  id: string;
+  nameKey: string;
+  items: string[];
+}
+
 export type Language = 'en' | 'pt';

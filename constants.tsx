@@ -1,10 +1,153 @@
 
 import React from 'react';
-import { Home, Building2, Sparkles, MoveHorizontal, Grid, Hammer, CalendarCheck, CreditCard, Heart } from 'lucide-react';
-import { ServiceCardProps, Testimonial, NavLink, ServiceArea, FAQItem } from './types';
+import { Home, Building2, Sparkles, MoveHorizontal, Grid, Hammer, CalendarCheck, CreditCard, Heart, Waves, TreePine, ChefHat, Sofa, BedDouble, Bath } from 'lucide-react';
+import { ServiceCardProps, Testimonial, NavLink, ServiceArea, TeamMember, ChecklistRoom } from './types';
+
+export const VIBES = [
+  { id: 'fresh', color: '#3b82f6', icon: '❄️', key: 'vibe_fresh', particles: 'sparkle' },
+  { id: 'citrus', color: '#facc15', icon: '🍋', key: 'vibe_citrus', particles: 'glow' },
+  { id: 'lavender', color: '#a855f7', icon: '🌿', key: 'vibe_lavender', particles: 'leaf' },
+  { id: 'eucalyptus', color: '#10b981', icon: '🍃', key: 'vibe_eucalyptus', particles: 'leaf' },
+];
+
+export const NAV_LINKS = [
+  { href: '#home', key: 'nav_home' },
+  { href: '#services', key: 'nav_services' },
+  { href: '#about', key: 'nav_about' },
+  { href: '#how', key: 'nav_how' },
+  { href: '#reviews', key: 'nav_reviews' },
+  { href: '#contact', key: 'nav_contact' },
+];
+
+export const SERVICES = [
+  { id: 'res', icon: <Home className="w-8 h-8" /> },
+  { id: 'com', icon: <Building2 className="w-8 h-8" /> },
+  { id: 'deep', icon: <Sparkles className="w-8 h-8" /> },
+  { id: 'move', icon: <MoveHorizontal className="w-8 h-8" /> },
+  { id: 'win', icon: <Grid className="w-8 h-8" /> },
+  { id: 'post', icon: <Hammer className="w-8 h-8" /> },
+];
+
+export const TESTIMONIALS: Testimonial[] = [
+  { id: 1, name: 'Sarah Johnson', location: 'Miami, FL', text: 'Best cleaning service I have ever used. Meticulous!', stars: 5 },
+  { id: 2, name: 'Ricardo Silva', location: 'Boston, MA', text: 'The Brazilian touch is real. My house smells amazing.', stars: 5 },
+  { id: 3, name: 'Emily Davis', location: 'Jersey City, NJ', text: 'Reliable and professional. Highly recommended!', stars: 5 }
+];
+
+export const PROCESS_STEPS = [
+  { id: 1, key: 'process1' },
+  { id: 2, key: 'process2' },
+  { id: 3, key: 'process3' },
+];
+
+export const STATS = [
+  { id: 'happy', key: 'statsHappy', value: '500+' },
+  { id: 'clean', key: 'statsClean', value: '2500+' },
+  { id: 'rating', key: 'statsRating', value: '4.9' },
+];
+
+export const SERVICE_AREAS: ServiceArea[] = [
+  {
+    state: 'Florida',
+    cities: ['Miami', 'Orlando', 'Tampa', 'Fort Lauderdale', 'Boca Raton']
+  },
+  {
+    state: 'Massachusetts',
+    cities: ['Boston', 'Cambridge', 'Worcester', 'Quincy', 'Newton']
+  },
+  {
+    state: 'New Jersey',
+    cities: ['Newark', 'Jersey City', 'Princeton', 'Hoboken', 'Trenton']
+  }
+];
+
+export const TEAM: TeamMember[] = [
+  {
+    id: 1,
+    name: 'Helena Silva',
+    role: 'team_1_role',
+    specialty: 'team_1_specialty',
+    bio: 'team_1_bio',
+    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=800'
+  },
+  {
+    id: 2,
+    name: 'Ana Costa',
+    role: 'team_2_role',
+    specialty: 'team_2_specialty',
+    bio: 'team_2_bio',
+    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=800'
+  },
+  {
+    id: 3,
+    name: 'Beatriz Lima',
+    role: 'team_3_role',
+    specialty: 'team_3_specialty',
+    bio: 'team_3_bio',
+    image: 'https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?auto=format&fit=crop&q=80&w=800'
+  }
+];
+
+export const CHECKLIST_ROOMS: ChecklistRoom[] = [
+  {
+    id: 'kitchen',
+    nameKey: 'kitchens',
+    items: ['k_1', 'k_2', 'k_3', 'k_4', 'k_5']
+  },
+  {
+    id: 'bathroom',
+    nameKey: 'bathrooms',
+    items: ['b_1', 'b_2', 'b_3', 'b_4', 'b_5']
+  },
+  {
+    id: 'bedroom',
+    nameKey: 'bedrooms',
+    items: ['be_1', 'be_2', 'be_3', 'be_4', 'be_5']
+  }
+];
 
 export const TRANSLATIONS = {
   en: {
+    liveActivity: "Live Operations",
+    liveMsg: "Teams active in your area",
+    lastClean: "Last service completed",
+    activeTeams: "Active Teams",
+    meetTeam: "Meet the Artisans",
+    teamSub: "Behind every Lumina clean is a dedicated professional trained in the 'White-Glove' Brazilian standard.",
+    exploreChecklist: "White-Glove Standards",
+    checklistDesc: "Select a room to see our 50-point precision protocol.",
+    roomProtocol: "Room Protocol",
+    scrutinizedMsg: "Every corner scrutinized by our lead supervisor.",
+    // Team
+    team_1_role: "Senior Lead Pro", team_1_specialty: "Hospitality Specialist", team_1_bio: "15 years of experience bringing the high-end Brazilian standard to American luxury homes.",
+    team_2_role: "Sanitization Expert", team_2_specialty: "Clinical Cleaning", team_2_bio: "Obsessive about details. Ana ensures every surface is not just clean, but molecularly pure.",
+    team_3_role: "Organization Artist", team_3_specialty: "Closet & Space Layout", team_3_bio: "Beatriz believes that order in the house leads to order in the mind. Her finishing touches are legendary.",
+    // Checklist Items
+    k_1: "Degrease hood and stovetop", k_2: "Polish stainless steel", k_3: "Inside microwave deep clean", k_4: "Cabinet exterior detail", k_5: "Tile grout scrub",
+    b_1: "Mineral deposit removal", b_2: "Mirror streak-free polish", b_3: "Sanitize all high-touch points", b_4: "Floor hand-scrubbing", b_5: "Glass shower door scaling",
+    be_1: "Premium bed making", be_2: "Dusting baseboards & crown molding", be_3: "Ventilation grill detailing", be_4: "Under-bed vacuuming", be_5: "Upholstery fluffing",
+    // UI
+    estimatorTitle: "Custom Quote Engine",
+    estimatorSub: "Configure your space with precision for an instant estimate.",
+    bedrooms: "Bedrooms",
+    suites: "Suites",
+    livingRooms: "Living Rooms",
+    kitchens: "Kitchens",
+    bathrooms: "Bathrooms",
+    pool: "Pool Area",
+    garden: "Garden/Yard",
+    sqft: "Total Area (sq ft)",
+    cleaningType: "Cleaning Type",
+    typeStandard: "Standard",
+    typeDeep: "Deep / Complete",
+    vibeTitle: "Choose Your Home's Vibe",
+    vibeSub: "How do you want your home to feel (and smell) after we leave?",
+    vibe_fresh: "Fresh Linen",
+    vibe_citrus: "Energizing Citrus",
+    vibe_lavender: "Relaxing Lavender",
+    vibe_eucalyptus: "Pure Eucalyptus",
+    checklistTitle: "What's Included?",
+    checklistSub: "Total transparency in every corner. We follow a 50-point premium checklist.",
     topOffer: "Special: 20% OFF Your First Deep Cleaning! Use code: LUMINA20",
     heroBadge: "Brazilian Owned & Operated",
     heroTitle: "A Clean Home, Pure Peace of Mind.",
@@ -15,8 +158,6 @@ export const TRANSLATIONS = {
     faqSub: "Everything you need to know about our services.",
     calcTitle: "Quick Estimate",
     calcSub: "Estimate the starting cost for your space.",
-    rooms: "Rooms",
-    bathrooms: "Bathrooms",
     estTotal: "Estimated starting at",
     bookNow: "Book Now",
     howItWorks: "How It Works",
@@ -70,14 +211,12 @@ export const TRANSLATIONS = {
     contactGlow: "Let's Get Your Space Glowing",
     office: "Office",
     whatsApp: "WhatsApp",
-    // Navigation
     nav_home: "Home",
     nav_services: "Services",
     nav_about: "About",
     nav_how: "How It Works",
     nav_reviews: "Reviews",
     nav_contact: "Contact",
-    // Services Detailed
     service_res_title: "Residential Cleaning",
     service_res_desc: "Keep your home spotless with our professional recurring or one-time cleaning service.",
     service_com_title: "Commercial Cleaning",
@@ -90,39 +229,57 @@ export const TRANSLATIONS = {
     service_win_desc: "Crystal clear views with our professional glass and window treatment services.",
     service_post_title: "Post-Construction",
     service_post_desc: "We remove debris, dust, and residues to make your newly renovated space livable.",
-    // Checklist
     check_vetted: "Vetted Professionals",
     check_eco: "Eco-Friendly Options",
     check_custom: "Custom Checklists",
     check_sameday: "Same Day Service",
-    // Badge
     satisfactionBadge: "Satisfaction Guarantee",
     aboutTeamBadge: "About Our Team",
-    // State Descriptions
     desc_Florida: "Specializing in high-turnover vacation rental cleanings (Airbnb) and meticulous deep cleans for coastal properties.",
     desc_Massachusetts: "Focusing on the preservation of historic homes and high-demand move-in/out services for the local student community.",
     desc_New_Jersey: "Providing comprehensive office maintenance solutions and premium residential deep cleaning for suburban families.",
-    // FAQ
-    faqList: [
-      {
-        question: "Do I need to provide cleaning supplies?",
-        answer: "No, we bring all professional-grade equipment and eco-friendly cleaning solutions. If you have specific products you'd like us to use, just let us know!"
-      },
-      {
-        question: "Are you insured and bonded?",
-        answer: "Yes, Lumina Cleaning is fully licensed, insured, and bonded for your total protection and peace of mind."
-      },
-      {
-        question: "Do I need to be home during the cleaning?",
-        answer: "Most of our clients provide a key or access code. We are highly vetted and trusted professionals. However, you are more than welcome to be home if you prefer."
-      },
-      {
-        question: "What is your cancellation policy?",
-        answer: "We understand plans change. We ask for a 24-hour notice for any cancellations or rescheduling to avoid a small fee."
-      }
-    ]
   },
   pt: {
+    liveActivity: "Operações ao Vivo",
+    liveMsg: "Equipes ativas na sua área",
+    lastClean: "Último serviço finalizado",
+    activeTeams: "Equipes Ativas",
+    meetTeam: "Conheça os Especialistas",
+    teamSub: "Por trás de cada limpeza Lumina está um profissional dedicado, treinado no padrão 'White-Glove' brasileiro.",
+    exploreChecklist: "Padrão White-Glove",
+    checklistDesc: "Selecione um cômodo para ver nosso protocolo de precisão de 50 pontos.",
+    roomProtocol: "Protocolo por Cômodo",
+    scrutinizedMsg: "Cada canto inspecionado pelo nosso supervisor líder.",
+    // Equipe
+    team_1_role: "Líder Sênior Pro", team_1_specialty: "Especialista em Hospitalidade", team_1_bio: "15 anos de experiência trazendo o alto padrão brasileiro para residências de luxo americanas.",
+    team_2_role: "Especialista em Sanitização", team_2_specialty: "Limpeza Clínica", team_2_bio: "Obsessiva com detalhes. Ana garante que cada superfície esteja não apenas limpa, mas molecularmente pura.",
+    team_3_role: "Artista da Organização", team_3_specialty: "Layout de Closet e Espaços", team_3_bio: "Beatriz acredita que a ordem na casa leva à ordem na mente. Seus toques finais são lendários.",
+    // Itens do Checklist
+    k_1: "Desengordurar coifa e fogão", k_2: "Polimento de aço inox", k_3: "Limpeza profunda de micro-ondas", k_4: "Detalhamento externo de armários", k_5: "Esfregação de rejuntes",
+    b_1: "Remoção de depósitos minerais", b_2: "Polimento de espelhos sem marcas", b_3: "Sanitização de pontos de alto toque", b_4: "Lavagem manual do piso", b_5: "Descalcificação de box de vidro",
+    be_1: "Arrumação de cama premium", be_2: "Limpeza de rodapés e sancas", be_3: "Detalhamento de grades de ventilação", be_4: "Aspiração sob a cama", be_5: "Revitalização de estofados",
+    // UI
+    estimatorTitle: "Calculadora de Orçamento",
+    estimatorSub: "Configure seu espaço com precisão para uma estimativa instantânea.",
+    bedrooms: "Quartos",
+    suites: "Suítes",
+    livingRooms: "Salas",
+    kitchens: "Cozinhas",
+    bathrooms: "Banheiros",
+    pool: "Piscina",
+    garden: "Jardim",
+    sqft: "Área Total (m²)",
+    cleaningType: "Tipo de Limpeza",
+    typeStandard: "Padrão",
+    typeDeep: "Pesada / Completa",
+    vibeTitle: "Escolha a Vibe da sua Casa",
+    vibeSub: "Como você quer que sua casa se sinta (e cheire) depois que sairmos?",
+    vibe_fresh: "Algodão Fresco",
+    vibe_citrus: "Cítrico Energizante",
+    vibe_lavender: "Lavanda Relaxante",
+    vibe_eucalyptus: "Eucalipto Puro",
+    checklistTitle: "O que está incluído?",
+    checklistSub: "Transparência total em cada canto. Seguimos um checklist premium de 50 pontos.",
     topOffer: "Especial: 20% OFF na sua primeira limpeza pesada! Use o código: LUMINA20",
     heroBadge: "Empresa de Brasileiros para o Mundo",
     heroTitle: "Casa Limpa, Mente em Paz.",
@@ -133,8 +290,6 @@ export const TRANSLATIONS = {
     faqSub: "Tudo o que você precisa saber sobre nossos serviços.",
     calcTitle: "Estimativa Rápida",
     calcSub: "Calcule o valor inicial para o seu espaço.",
-    rooms: "Quartos",
-    bathrooms: "Banheiros",
     estTotal: "Estimativa a partir de",
     bookNow: "Agendar Agora",
     howItWorks: "Como Funciona",
@@ -188,16 +343,14 @@ export const TRANSLATIONS = {
     contactGlow: "Vamos Deixar seu Espaço Brilhando",
     office: "Escritório",
     whatsApp: "WhatsApp",
-    // Navegação
     nav_home: "Início",
     nav_services: "Serviços",
     nav_about: "Sobre",
     nav_how: "Como Funciona",
     nav_reviews: "Avaliações",
     nav_contact: "Contato",
-    // Serviços Detalhados
     service_res_title: "Limpeza Residencial",
-    service_res_desc: "Mantenha sua casa impecável com nosso serviço profissional de limpeza recorrente ou pontual.",
+    service_res_desc: "Mantenha sua casa impecável com nosso serviço profissional de limpeza recursiva ou pontual.",
     service_com_title: "Limpeza Comercial",
     service_com_desc: "Um local de trabalho limpo é produtivo. Atendemos escritórios, clínicas e espaços comerciais.",
     service_deep_title: "Limpeza Pesada (Deep)",
@@ -208,140 +361,14 @@ export const TRANSLATIONS = {
     service_win_desc: "Vistas cristalinas com nossos serviços profissionais de tratamento de vidros e janelas.",
     service_post_title: "Pós-Obra",
     service_post_desc: "Removemos detritos, poeira e resíduos para tornar seu espaço recém-renovado habitável.",
-    // Checklist
     check_vetted: "Profissionais Verificados",
     check_eco: "Produtos Ecológicos",
     check_custom: "Checklists Personalizados",
     check_sameday: "Serviço no Mesmo Dia",
-    // Badge
     satisfactionBadge: "Garantia de Satisfação",
     aboutTeamBadge: "Sobre Nossa Equipe",
-    // State Descriptions
     desc_Florida: "Especializados em limpeza de aluguel de temporada (Airbnb) e limpezas profundas detalhadas para propriedades costeiras.",
     desc_Massachusetts: "Foco na preservação de casas históricas e serviços de mudança (move-in/out) para a comunidade estudantil local.",
     desc_New_Jersey: "Oferecendo soluções completas de manutenção de escritórios e limpeza residencial pesada premium para famílias suburbanas.",
-    // FAQ
-    faqList: [
-      {
-        question: "Preciso fornecer os produtos de limpeza?",
-        answer: "Não, nós levamos todos os equipamentos de nível profissional e soluções de limpeza ecológicas. Se você tiver produtos específicos que gostaria que usássemos, basta nos avisar!"
-      },
-      {
-        question: "Vocês possuem seguro?",
-        answer: "Sim, a Lumina Cleaning é totalmente licenciada e segurada (insured and bonded) para sua total proteção e tranquilidade."
-      },
-      {
-        question: "Preciso estar em casa durante a limpeza?",
-        answer: "A maioria dos nossos clientes fornece uma chave ou código de acesso. Somos profissionais altamente verificados e confiáveis. No entanto, você é mais do que bem-vindo a estar em casa se preferir."
-      },
-      {
-        question: "Qual é a política de cancelamento?",
-        answer: "Entendemos que planos mudam. Pedimos um aviso de 24 horas para cancelamentos ou reagendamentos para evitar uma pequena taxa."
-      }
-    ]
   }
 };
-
-export const NAV_LINKS: (NavLink & { key: string })[] = [
-  { label: 'Home', href: '#home', key: 'nav_home' },
-  { label: 'Services', href: '#services', key: 'nav_services' },
-  { label: 'About', href: '#about', key: 'nav_about' },
-  { label: 'How It Works', href: '#how-it-works', key: 'nav_how' },
-  { label: 'Reviews', href: '#reviews', key: 'nav_reviews' },
-  { label: 'Contact', href: '#contact', key: 'nav_contact' },
-];
-
-export const SERVICES: ServiceCardProps[] = [
-  {
-    id: 'res',
-    title: 'Residential Cleaning',
-    description: 'Keep your home spotless with our professional recurring or one-time cleaning service.',
-    icon: <Home className="w-8 h-8" />,
-  },
-  {
-    id: 'com',
-    title: 'Commercial Cleaning',
-    description: 'A clean workplace is a productive one. We serve offices, clinics, and retail spaces.',
-    icon: <Building2 className="w-8 h-8" />,
-  },
-  {
-    id: 'deep',
-    title: 'Deep Cleaning',
-    description: 'A meticulous top-to-bottom clean for every corner of your property.',
-    icon: <Sparkles className="w-8 h-8" />,
-  },
-  {
-    id: 'move',
-    title: 'Move In / Move Out',
-    description: 'Make your transition stress-free with a professional deep clean before or after moving.',
-    icon: <MoveHorizontal className="w-8 h-8" />,
-  },
-  {
-    id: 'win',
-    title: 'Window Cleaning',
-    description: 'Crystal clear views with our professional glass and window treatment services.',
-    icon: <Grid className="w-8 h-8" />,
-  },
-  {
-    id: 'post',
-    title: 'Post-Construction',
-    description: 'We remove debris, dust, and residues to make your newly renovated space livable.',
-    icon: <Hammer className="w-8 h-8" />,
-  },
-];
-
-export const PROCESS_STEPS = [
-  { icon: <CalendarCheck className="w-10 h-10" />, key: 'process1' },
-  { icon: <CreditCard className="w-10 h-10" />, key: 'process2' },
-  { icon: <Heart className="w-10 h-10" />, key: 'process3' }
-];
-
-export const STATS = [
-  { labelKey: 'statsHappy', value: '1,500+' },
-  { labelKey: 'statsClean', value: '8,200+' },
-  { labelKey: 'statsRating', value: '4.9/5' }
-];
-
-export const TESTIMONIALS: Testimonial[] = [
-  {
-    id: 1,
-    name: 'Amanda R.',
-    location: 'Orlando, FL',
-    text: 'Excellent service! The team is incredibly professional and reliable. My house has never looked so good.',
-    stars: 5,
-  },
-  {
-    id: 2,
-    name: 'Roberto S.',
-    location: 'Miami, FL',
-    text: 'Being a Brazilian living abroad, it is hard to find trust. Lumina Cleaning is the real deal. Highly recommend!',
-    stars: 5,
-  },
-  {
-    id: 3,
-    name: 'Sarah J.',
-    location: 'Boston, MA',
-    text: 'They did a move-out cleaning for my apartment and it was flawless. Got my full deposit back. Thank you!',
-    stars: 5,
-  },
-  {
-    id: 4,
-    name: 'Carlos M.',
-    location: 'Tampa, FL',
-    text: 'Reliability is everything. These guys never miss a spot and always arrive on time. Best cleaning service in FL.',
-    stars: 5,
-  },
-  {
-    id: 5,
-    name: 'Lucia P.',
-    location: 'Newark, NJ',
-    text: 'Professional, polite, and very detailed. They cleaned my office over the weekend and the results were stunning.',
-    stars: 5,
-  },
-];
-
-export const SERVICE_AREAS: ServiceArea[] = [
-  { state: 'Florida', cities: ['Miami', 'Orlando', 'Tampa', 'Boca Raton'] },
-  { state: 'Massachusetts', cities: ['Boston', 'Framingham', 'Worcester'] },
-  { state: 'New Jersey', cities: ['Newark', 'Jersey City', 'Elizabeth'] },
-];
