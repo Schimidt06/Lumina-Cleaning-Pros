@@ -2,12 +2,19 @@
 import React from 'react';
 import { Phone, MessageCircle } from 'lucide-react';
 
-export const FloatingActions: React.FC = () => {
+interface FloatingActionsProps {
+  whatsappMessage?: string;
+}
+
+export const FloatingActions: React.FC<FloatingActionsProps> = ({ whatsappMessage }) => {
+  const encodedMsg = whatsappMessage ? encodeURIComponent(whatsappMessage) : '';
+  const waUrl = `https://wa.me/5511999999999${encodedMsg ? `?text=${encodedMsg}` : ''}`;
+
   return (
     <div className="fixed bottom-6 right-6 flex flex-col gap-4 z-[9999]">
       {/* WhatsApp Button */}
       <a
-        href="https://wa.me/10000000000"
+        href={waUrl}
         target="_blank"
         rel="noopener noreferrer"
         className="group relative flex items-center justify-center"

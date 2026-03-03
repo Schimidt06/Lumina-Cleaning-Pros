@@ -1,9 +1,10 @@
 
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import {
   Phone, CheckCircle2, Star, ArrowRight, ShieldCheck, MapPin,
   Sparkles, MessageCircle, Plus, Minus, Moon, Sun, Award, Sofa,
-  BedDouble, Bath, Layout, Navigation, Zap, Info, Loader2, Waves, TreePine, Ruler, MessageSquare, Quote
+  BedDouble, Bath, Layout, Navigation, Zap, Info, Loader2, Waves, TreePine, Ruler, MessageSquare, Quote,
+  ClipboardList, Calculator, CalendarCheck, PartyPopper, ChevronDown, HelpCircle, Send, Check, X
 } from 'lucide-react';
 import { SectionTitle } from './components/SectionTitle.tsx';
 import { FloatingActions } from './components/FloatingActions.tsx';
@@ -11,7 +12,8 @@ import { InteractiveMap } from './components/InteractiveMap.tsx';
 import { RealTimeDashboard } from './components/RealTimeDashboard.tsx';
 import { RoomExplorer } from './components/RoomExplorer.tsx';
 import { VibeParticles } from './components/VibeParticles.tsx';
-import { NAV_LINKS, SERVICES, TRANSLATIONS, VIBES, TEAM, TESTIMONIALS } from './constants.tsx';
+import { MiniCalendar } from './components/MiniCalendar.tsx';
+import { NAV_LINKS, SERVICES, TRANSLATIONS, VIBES, TEAM, TESTIMONIALS, HOW_IT_WORKS_STEPS, FAQ_ITEMS, PARTNERS } from './constants.tsx';
 import { Language } from './types.ts';
 
 const App: React.FC = () => {
@@ -22,10 +24,14 @@ const App: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const [formMessage, setFormMessage] = useState('');
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [showToast, setShowToast] = useState(false);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [displayEstimate, setDisplayEstimate] = useState(0);
 
   const contactRef = useRef<HTMLElement>(null);
 
-  const [houseConfig, setHouseConfig] = useState({
+  const [houseConfig, setHouseConfig] = useState<any>({
     bedrooms: 0,
     suites: 0,
     livingRooms: 0,
@@ -34,7 +40,8 @@ const App: React.FC = () => {
     hasPool: false,
     hasGarden: false,
     sqft: 0,
-    isDeepClean: false
+    isDeepClean: false,
+    extras: {}
   });
 
   const t = useMemo(() => TRANSLATIONS[lang] as any, [lang]);
@@ -107,6 +114,71 @@ const App: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Animated Price Counter
+  useEffect(() => {
+    const diff = estimate - displayEstimate;
+    if (diff === 0) return;
+    const step = diff > 0 ? Math.max(1, Math.ceil(diff / 15)) : Math.min(-1, Math.floor(diff / 15));
+    const timer = setTimeout(() => setDisplayEstimate(prev => prev + step), 20);
+    return () => clearTimeout(timer);
+  }, [estimate, displayEstimate]);
+
+  // Scroll Reveal Animation
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-revealed');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+    );
+    document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  // WhatsApp Pre-filled Message
+  const whatsappMessage = useMemo(() => {
+    const extrasStr = Object.entries(houseConfig.extras || {})
+      .filter(([_, active]) => active)
+      .map(([id]) => t[`extra_${id}`] || id)
+      .join(', ');
+
+    return lang === 'en'
+      ? `Hello! I'd like to book a cleaning. 
+My estimate: $${estimate}
+Details:
+- Bedrooms: ${houseConfig.bedrooms} (${houseConfig.suites} Suites)
+- Bathrooms: ${houseConfig.bathrooms}
+- Living Rooms: ${houseConfig.livingRooms}
+- Square Feet: ${houseConfig.sqft}
+- Features: ${houseConfig.hasPool ? 'Pool, ' : ''}${houseConfig.hasGarden ? 'Garden' : ''}
+${extrasStr ? `- Extras: ${extrasStr}` : ''}`
+      : `Olá! Gostaria de agendar uma limpeza.
+Meu orçamento: $${estimate}
+Detalhes:
+- Quartos: ${houseConfig.bedrooms} (${houseConfig.suites} Suítes)
+- Banheiros: ${houseConfig.bathrooms}
+- Salas: ${houseConfig.livingRooms}
+- Área: ${houseConfig.sqft} sqft
+- Adicionais: ${houseConfig.hasPool ? 'Piscina, ' : ''}${houseConfig.hasGarden ? 'Jardim' : ''}
+${extrasStr ? `- Extras: ${extrasStr}` : ''}`;
+  }, [houseConfig, estimate, lang, t]);
+
+  // Form submission handler
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setShowToast(true);
+    setFormMessage('');
+    setSelectedDate(null);
+    setTimeout(() => setShowToast(false), 4000);
+  };
+
+  const STEP_ICONS = [ClipboardList, Calculator, CalendarCheck, PartyPopper];
+
   const Counter = ({ label, value, onInc, onDec, icon: Icon, subLabel }: any) => (
     <div className={`p-5 rounded-[2rem] border transition-all ${darkMode ? 'bg-white/5 border-white/10' : 'bg-slate-50 border-slate-200 shadow-sm'}`}>
       <div className="flex items-center gap-3 mb-4">
@@ -136,6 +208,8 @@ const App: React.FC = () => {
         .bg-accent { background-color: var(--accent-color); }
         .border-accent { border-color: var(--accent-color); }
         .desktop-container { max-width: 1400px; margin: 0 auto; }
+        .animate-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease-out, transform 0.7s ease-out; }
+        .animate-revealed { opacity: 1; transform: translateY(0); }
       `}</style>
 
       {/* Navbar */}
@@ -267,7 +341,7 @@ const App: React.FC = () => {
             <div className="pt-6 sm:pt-8 md:pt-12 border-t border-white/5 mt-6 sm:mt-8 md:mt-12">
               <p className="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.3em] sm:tracking-[0.4em] text-slate-500 mb-2 sm:mb-3">{t.estTotal}</p>
               <div className="flex items-baseline gap-2 sm:gap-3">
-                <span className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black tracking-tighter text-[var(--accent-color)]">${estimate}</span>
+                <span className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black tracking-tighter text-[var(--accent-color)]">${displayEstimate}</span>
                 <span className="text-sm sm:text-base md:text-lg font-bold text-slate-500">/service</span>
               </div>
               <button onClick={handleCalculatorBooking} className="w-full bg-[var(--accent-color)] py-4 sm:py-6 md:py-8 rounded-xl sm:rounded-[2rem] md:rounded-[2.5rem] font-black text-base sm:text-xl md:text-2xl mt-6 sm:mt-8 md:mt-10 hover:brightness-110 transition-all shadow-2xl shadow-[var(--accent-color)]/30 flex items-center justify-center gap-3 sm:gap-5 text-white transform hover:-translate-y-2 active:translate-y-0">
@@ -277,6 +351,21 @@ const App: React.FC = () => {
           </div>
         </div>
       </header>
+
+      {/* Partners / Certifications Bar */}
+      <div className={`py-8 sm:py-12 border-y ${darkMode ? 'bg-slate-900/30 border-white/5' : 'bg-slate-50 border-slate-100'}`}>
+        <div className="desktop-container px-4 sm:px-6">
+          <p className="text-center text-[10px] sm:text-[11px] font-black uppercase tracking-[0.3em] sm:tracking-[0.5em] text-slate-500 mb-4 sm:mb-6">{t.partnersTitle}</p>
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-10 lg:gap-16">
+            {PARTNERS.map((p, i) => (
+              <div key={i} className={`flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 rounded-xl sm:rounded-2xl border transition-all hover:scale-105 ${darkMode ? 'bg-white/5 border-white/5' : 'bg-white border-slate-100 shadow-sm'}`}>
+                <span className="text-lg sm:text-2xl">{p.icon}</span>
+                <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-wider sm:tracking-widest">{p.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
 
       {/* Services Section */}
       <section id="services" className="py-16 sm:py-24 md:py-32 lg:py-48">
@@ -306,6 +395,35 @@ const App: React.FC = () => {
         </div>
       </section>
 
+      {/* How It Works Section */}
+      <section id="how" className={`py-16 sm:py-24 md:py-32 lg:py-48 ${darkMode ? 'bg-slate-900/20' : 'bg-slate-50'}`}>
+        <div className="desktop-container px-4 sm:px-6">
+          <div className="animate-on-scroll">
+            <SectionTitle title={t.howTitle} subtitle={t.howSub} light={darkMode} />
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-10 mt-10 sm:mt-16 md:mt-20">
+            {HOW_IT_WORKS_STEPS.map((step, idx) => {
+              const StepIcon = STEP_ICONS[idx];
+              return (
+                <div key={step.id} className="animate-on-scroll group relative">
+                  {idx < 3 && <div className="hidden lg:block absolute top-16 left-full w-full h-0.5 bg-gradient-to-r from-[var(--accent-color)]/30 to-transparent z-0"></div>}
+                  <div className={`relative z-10 p-6 sm:p-8 md:p-10 rounded-2xl sm:rounded-[3rem] border transition-all duration-500 hover:-translate-y-2 ${darkMode ? 'bg-slate-900/50 border-white/5 hover:border-[var(--accent-color)]/30' : 'bg-white border-slate-100 shadow-xl hover:shadow-2xl'}`}>
+                    <div className="flex items-center gap-3 sm:gap-4 mb-5 sm:mb-6 md:mb-8">
+                      <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl sm:rounded-2xl bg-[var(--accent-color)] flex items-center justify-center text-white shadow-xl shadow-[var(--accent-color)]/20 group-hover:rotate-12 transition-transform">
+                        <StepIcon size={22} className="sm:w-6 sm:h-6 md:w-7 md:h-7" />
+                      </div>
+                      <span className="text-4xl sm:text-5xl md:text-6xl font-black text-[var(--accent-color)]/10 group-hover:text-[var(--accent-color)]/20 transition-colors">0{step.id}</span>
+                    </div>
+                    <h4 className="text-xl sm:text-2xl md:text-3xl font-black mb-3 sm:mb-4 group-hover:text-[var(--accent-color)] transition-colors">{t[step.titleKey]}</h4>
+                    <p className="text-sm sm:text-base md:text-lg text-slate-400 leading-relaxed font-medium">{t[step.descKey]}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* Meet the Artisans */}
       <section id="about" className={`py-16 sm:py-24 md:py-32 lg:py-48 ${darkMode ? 'bg-slate-900/20' : 'bg-slate-50'}`}>
         <div className="desktop-container px-4 sm:px-6">
@@ -323,6 +441,39 @@ const App: React.FC = () => {
                       <p className="text-white/80 text-sm sm:text-base md:text-lg leading-relaxed font-medium">{t[member.bio]}</p>
                     </div>
                   </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Before/After Gallery Section */}
+      <section className="py-16 sm:py-24 md:py-32 lg:py-48 overflow-hidden">
+        <div className="desktop-container px-4 sm:px-6">
+          <div className="animate-on-scroll">
+            <SectionTitle title={lang === 'en' ? "Visual Proof" : "Resultados Visíveis"} subtitle={lang === 'en' ? "Real transformations by our premium teams." : "Transformações reais de nossos times premium."} light={darkMode} />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 mt-10 sm:mt-16 md:mt-20">
+            {[1, 2].map(i => (
+              <div key={i} className="animate-on-scroll group relative rounded-[2rem] sm:rounded-[3rem] md:rounded-[4.5rem] overflow-hidden aspect-[16/10] shadow-2xl">
+                <div className="absolute inset-0 flex">
+                  <div className="w-1/2 relative">
+                    <img src={`https://images.unsplash.com/photo-1581578731548-c64695ce6958?auto=format&fit=crop&q=80&w=800`} className="w-full h-full object-cover grayscale brightness-50" alt="Before" />
+                    <div className="absolute top-4 left-4 sm:top-8 sm:left-8 px-3 py-1 sm:px-4 sm:py-2 bg-black/50 backdrop-blur-md rounded-lg text-[10px] font-black uppercase text-white tracking-widest">Before</div>
+                  </div>
+                  <div className="w-1/2 relative">
+                    <img src={`https://images.unsplash.com/photo-1528740561666-dc2479dc08ab?auto=format&fit=crop&q=80&w=800`} className="w-full h-full object-cover" alt="After" />
+                    <div className="absolute top-4 right-4 sm:top-8 sm:right-8 px-3 py-1 sm:px-4 sm:py-2 bg-[var(--accent-color)] rounded-lg text-[10px] font-black uppercase text-white tracking-widest shadow-lg shadow-[var(--accent-color)]/30">After</div>
+                  </div>
+                </div>
+                <div className="absolute inset-x-0 bottom-0 p-6 sm:p-10 md:p-14 bg-gradient-to-t from-slate-950/80 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                  <h4 className="text-white text-xl sm:text-2xl md:text-3xl font-black mb-2 sm:mb-3">
+                    {i === 1 ? (lang === 'en' ? 'Kitchen Revival' : 'Revitalização de Cozinha') : (lang === 'en' ? 'Living Room Detail' : 'Detalhamento de Sala')}
+                  </h4>
+                  <p className="text-white/70 text-sm sm:text-base font-medium">
+                    {i === 1 ? (lang === 'en' ? 'Deep grease removal and metal polish.' : 'Remoção de gordura e polimento de metais.') : (lang === 'en' ? 'Meticulous dusting and upholstery care.' : 'Aspiração meticulosa e cuidado com estofados.')}
+                  </p>
                 </div>
               </div>
             ))}
@@ -366,6 +517,39 @@ const App: React.FC = () => {
         </div>
       </section>
 
+      {/* FAQ Section */}
+      <section className={`py-16 sm:py-24 md:py-32 lg:py-48 ${darkMode ? '' : 'bg-slate-50'}`}>
+        <div className="desktop-container px-4 sm:px-6">
+          <div className="animate-on-scroll">
+            <SectionTitle title={t.faqTitle} subtitle={t.faqSub} light={darkMode} />
+          </div>
+          <div className="max-w-3xl mx-auto mt-10 sm:mt-16 md:mt-20 space-y-3 sm:space-y-4">
+            {FAQ_ITEMS.map((faq) => (
+              <div
+                key={faq.id}
+                className={`animate-on-scroll rounded-xl sm:rounded-2xl border overflow-hidden transition-all ${darkMode ? 'bg-white/5 border-white/5' : 'bg-white border-slate-100 shadow-sm'} ${openFaq === faq.id ? 'ring-2 ring-[var(--accent-color)]/20' : ''}`}
+              >
+                <button
+                  onClick={() => setOpenFaq(openFaq === faq.id ? null : faq.id)}
+                  className="w-full flex items-center justify-between p-5 sm:p-6 md:p-8 text-left"
+                >
+                  <div className="flex items-center gap-3 sm:gap-4">
+                    <HelpCircle size={18} className={`sm:w-5 sm:h-5 flex-shrink-0 transition-colors ${openFaq === faq.id ? 'text-[var(--accent-color)]' : 'text-slate-500'}`} />
+                    <span className="text-sm sm:text-base md:text-lg font-black">{t[faq.questionKey]}</span>
+                  </div>
+                  <ChevronDown size={18} className={`sm:w-5 sm:h-5 flex-shrink-0 transition-transform duration-300 ${openFaq === faq.id ? 'rotate-180 text-[var(--accent-color)]' : 'text-slate-500'}`} />
+                </button>
+                <div className={`overflow-hidden transition-all duration-300 ${openFaq === faq.id ? 'max-h-48 opacity-100' : 'max-h-0 opacity-0'}`}>
+                  <p className="px-5 sm:px-6 md:px-8 pb-5 sm:pb-6 md:pb-8 text-sm sm:text-base text-slate-400 leading-relaxed font-medium pl-12 sm:pl-14 md:pl-16">
+                    {t[faq.answerKey]}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Final Contact Form & Area Search */}
       <section id="contact" ref={contactRef} className="py-16 sm:py-24 md:py-32 lg:py-48">
         <div className="desktop-container px-4 sm:px-6">
@@ -378,18 +562,25 @@ const App: React.FC = () => {
             </div>
             <div className={`lg:col-span-4 p-6 sm:p-8 md:p-10 lg:p-14 rounded-2xl sm:rounded-[3rem] lg:rounded-[4.5rem] border flex flex-col shadow-2xl relative ${darkMode ? 'bg-slate-900 border-white/5' : 'bg-slate-50 border-slate-100'}`}>
               <h3 className="text-2xl sm:text-3xl md:text-4xl font-black mb-6 sm:mb-8 md:mb-10">{t.contactTitle}</h3>
-              <form className="space-y-4 sm:space-y-6 md:space-y-8 flex-1" onSubmit={e => e.preventDefault()}>
+              <form className="space-y-4 sm:space-y-6 md:space-y-8 flex-1" onSubmit={handleFormSubmit}>
                 <input type="text" placeholder={t.contactName} className={`w-full p-4 sm:p-5 md:p-7 rounded-xl sm:rounded-[1.5rem] outline-none transition-all border-2 text-base sm:text-lg font-medium ${darkMode ? 'bg-white/5 border-transparent focus:border-[var(--accent-color)] text-white' : 'bg-white border-slate-100 focus:border-[var(--accent-color)]'}`} />
                 <input type="email" placeholder={t.contactEmail} className={`w-full p-4 sm:p-5 md:p-7 rounded-xl sm:rounded-[1.5rem] outline-none transition-all border-2 text-base sm:text-lg font-medium ${darkMode ? 'bg-white/5 border-transparent focus:border-[var(--accent-color)] text-white' : 'bg-white border-slate-100 focus:border-[var(--accent-color)]'}`} />
+
+                {/* Mini Calendar */}
+                <div>
+                  <p className={`text-[10px] sm:text-[11px] font-black uppercase tracking-[0.2em] mb-3 ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>{t.selectDate}</p>
+                  <MiniCalendar selectedDate={selectedDate} onDateSelect={setSelectedDate} darkMode={darkMode} lang={lang} />
+                </div>
+
                 <textarea
-                  rows={5}
+                  rows={4}
                   placeholder={t.contactMsg}
                   value={formMessage}
                   onChange={(e) => setFormMessage(e.target.value)}
                   className={`w-full p-4 sm:p-5 md:p-7 rounded-xl sm:rounded-[1.5rem] outline-none transition-all border-2 resize-none text-base sm:text-lg font-medium ${darkMode ? 'bg-white/5 border-transparent focus:border-[var(--accent-color)] text-white' : 'bg-white border-slate-100 focus:border-[var(--accent-color)]'}`}
                 ></textarea>
-                <button className="w-full bg-[var(--accent-color)] py-4 sm:py-6 md:py-8 rounded-xl sm:rounded-[1.5rem] md:rounded-[2rem] font-black text-base sm:text-lg md:text-xl uppercase tracking-[0.15em] sm:tracking-[0.2em] mt-4 sm:mt-6 md:mt-8 hover:brightness-110 transition-all shadow-2xl shadow-[var(--accent-color)]/30 text-white transform hover:-translate-y-1 active:translate-y-0">
-                  {t.contactSubmit}
+                <button type="submit" className="w-full bg-[var(--accent-color)] py-4 sm:py-6 md:py-8 rounded-xl sm:rounded-[1.5rem] md:rounded-[2rem] font-black text-base sm:text-lg md:text-xl uppercase tracking-[0.15em] sm:tracking-[0.2em] mt-4 sm:mt-6 md:mt-8 hover:brightness-110 transition-all shadow-2xl shadow-[var(--accent-color)]/30 text-white transform hover:-translate-y-1 active:translate-y-0 flex items-center justify-center gap-3">
+                  <Send size={20} className="sm:w-6 sm:h-6" /> {t.contactSubmit}
                 </button>
               </form>
             </div>
@@ -415,7 +606,16 @@ const App: React.FC = () => {
         </div>
       </footer>
 
-      <FloatingActions />
+      <FloatingActions whatsappMessage={whatsappMessage} />
+
+      {/* Toast Notification */}
+      <div className={`fixed top-24 right-6 z-[9999] transition-all duration-500 ${showToast ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'}`}>
+        <div className="bg-green-500 text-white px-6 py-4 rounded-2xl shadow-2xl shadow-green-500/30 flex items-center gap-3 font-bold text-sm max-w-sm">
+          <Check size={20} className="flex-shrink-0" />
+          {t.formToastSuccess}
+          <button onClick={() => setShowToast(false)} className="ml-2 hover:opacity-70"><X size={16} /></button>
+        </div>
+      </div>
     </div>
   );
 };
