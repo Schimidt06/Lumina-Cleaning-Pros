@@ -1,8 +1,8 @@
 
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { 
-  Phone, CheckCircle2, Star, ArrowRight, ShieldCheck, MapPin, 
-  Sparkles, MessageCircle, Plus, Minus, Moon, Sun, Award, Sofa, 
+import {
+  Phone, CheckCircle2, Star, ArrowRight, ShieldCheck, MapPin,
+  Sparkles, MessageCircle, Plus, Minus, Moon, Sun, Award, Sofa,
   BedDouble, Bath, Layout, Navigation, Zap, Info, Loader2, Waves, TreePine, Ruler, MessageSquare, Quote
 } from 'lucide-react';
 import { SectionTitle } from './components/SectionTitle.tsx';
@@ -20,20 +20,20 @@ const App: React.FC = () => {
   const [darkMode, setDarkMode] = useState(true);
   const [currentVibe, setCurrentVibe] = useState(VIBES[0]);
   const [menuOpen, setMenuOpen] = useState(false);
-  
+
   const [formMessage, setFormMessage] = useState('');
-  
+
   const contactRef = useRef<HTMLElement>(null);
 
   const [houseConfig, setHouseConfig] = useState({
-    bedrooms: 2,
+    bedrooms: 0,
     suites: 0,
-    livingRooms: 1,
-    kitchens: 1,
-    bathrooms: 1,
+    livingRooms: 0,
+    kitchens: 0,
+    bathrooms: 0,
     hasPool: false,
     hasGarden: false,
-    sqft: 1500,
+    sqft: 0,
     isDeepClean: false
   });
 
@@ -41,6 +41,8 @@ const App: React.FC = () => {
 
   // Estimate Calculation Logic
   const estimate = useMemo(() => {
+    const hasAnyRoom = houseConfig.bedrooms > 0 || houseConfig.suites > 0 || houseConfig.livingRooms > 0 || houseConfig.bathrooms > 0 || houseConfig.sqft > 0;
+    if (!hasAnyRoom && !houseConfig.hasPool && !houseConfig.hasGarden) return 0;
     let base = 80;
     base += (houseConfig.bedrooms - houseConfig.suites) * 15;
     base += houseConfig.suites * 35;
@@ -68,10 +70,10 @@ const App: React.FC = () => {
 
   // Pre-fill form from calculator with high detail
   const handleCalculatorBooking = () => {
-    const detailMsg = lang === 'en' 
+    const detailMsg = lang === 'en'
       ? `Estimated Service Price: $${estimate}. Config: ${houseConfig.bedrooms} Bedrooms (${houseConfig.suites} Suites), ${houseConfig.bathrooms} Bathrooms, ${houseConfig.sqft} sqft. Extras: Pool(${houseConfig.hasPool ? 'Yes' : 'No'}), Garden(${houseConfig.hasGarden ? 'Yes' : 'No'}). Preferred Scent: ${t[currentVibe.key]}.`
       : `Preço Estimado: $${estimate}. Config: ${houseConfig.bedrooms} Quartos (${houseConfig.suites} Suítes), ${houseConfig.bathrooms} Banheiros, ${houseConfig.sqft} sqft. Extras: Piscina(${houseConfig.hasPool ? 'Sim' : 'Não'}), Jardim(${houseConfig.hasGarden ? 'Sim' : 'Não'}). Essência Escolhida: ${t[currentVibe.key]}.`;
-    
+
     setFormMessage(detailMsg);
     scrollToId('contact');
   };
@@ -82,7 +84,7 @@ const App: React.FC = () => {
     const detailMsg = lang === 'en'
       ? `I am interested in ${serviceTitle}. Please reach out with availability for a ${t[currentVibe.key]} session.`
       : `Estou interessado no serviço: ${serviceTitle}. Por favor, entre em contato para agendar uma sessão com aroma de ${t[currentVibe.key]}.`;
-    
+
     setFormMessage(detailMsg);
     scrollToId('contact');
   };
@@ -127,7 +129,7 @@ const App: React.FC = () => {
   return (
     <div className={`min-h-screen ${darkMode ? 'bg-slate-950 text-white' : 'bg-white text-slate-900'} transition-colors duration-500 overflow-x-hidden selection:bg-[var(--accent-color)] selection:text-white`}>
       <VibeParticles color={currentVibe.color} type={currentVibe.particles} />
-      
+
       <style>{`
         :root { --accent-color: #3b82f6; }
         .text-accent { color: var(--accent-color); }
@@ -181,28 +183,28 @@ const App: React.FC = () => {
       {/* Hero Header */}
       <header id="home" className="relative min-h-screen flex items-center pt-20 sm:pt-24 overflow-hidden">
         <div className="absolute inset-0 -z-10">
-          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2000" className="w-full h-full object-cover opacity-20" alt="bg"/>
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2000" className="w-full h-full object-cover opacity-20" alt="bg" />
           <div className="absolute inset-0 bg-gradient-to-b from-slate-950/20 via-slate-950/80 to-slate-950"></div>
         </div>
-        
+
         <div className="desktop-container px-4 sm:px-6 grid lg:grid-cols-2 gap-10 md:gap-16 lg:gap-24 items-center">
           <div className="space-y-8 sm:space-y-12">
             <div className="inline-block px-4 sm:px-5 py-2 bg-[var(--accent-color)]/10 border border-[var(--accent-color)]/20 rounded-full text-[var(--accent-color)] text-[10px] sm:text-[11px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] animate-fade-in">
               {t.heroBadge}
             </div>
             <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-black tracking-tighter leading-[0.85] animate-fade-in">
-              {heroParts[0]}<br/>
+              {heroParts[0]}<br />
               <span className="text-[var(--accent-color)]">{heroParts[1]}</span>
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-slate-400 max-w-lg font-medium leading-relaxed opacity-80">{t.heroSub}</p>
-            
+
             <div className="space-y-4 sm:space-y-6">
               <p className="text-[10px] font-black uppercase tracking-[0.3em] sm:tracking-[0.4em] text-slate-500">{t.vibeTitle}</p>
               <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-2 sm:gap-4">
                 {VIBES.map(v => (
-                  <button 
-                    key={v.id} 
-                    onClick={() => setCurrentVibe(v)} 
+                  <button
+                    key={v.id}
+                    onClick={() => setCurrentVibe(v)}
                     className={`flex items-center gap-2 sm:gap-5 px-3 sm:px-6 md:px-8 py-3 sm:py-5 rounded-xl sm:rounded-[2rem] border-2 transition-all transform hover:scale-105 active:scale-95 ${currentVibe.id === v.id ? 'border-[var(--accent-color)] bg-[var(--accent-color)]/10 shadow-2xl shadow-[var(--accent-color)]/20' : 'border-white/5 bg-white/5'}`}
                   >
                     <span className="text-xl sm:text-3xl">{v.icon}</span>
@@ -220,42 +222,42 @@ const App: React.FC = () => {
           {/* Quote Estimator Card */}
           <div className={`p-6 sm:p-8 md:p-12 lg:p-16 rounded-[2rem] sm:rounded-[3rem] md:rounded-[4.5rem] border transition-all duration-700 shadow-2xl relative group ${darkMode ? 'bg-slate-900/40 border-white/5 backdrop-blur-3xl' : 'bg-white border-slate-100'}`}>
             <div className="absolute -top-4 -right-4 sm:-top-8 sm:-right-8 p-4 sm:p-6 md:p-8 bg-[var(--accent-color)] text-white rounded-xl sm:rounded-[2rem] md:rounded-[2.5rem] shadow-2xl rotate-12 flex flex-col items-center group-hover:rotate-0 transition-transform duration-500">
-               <Zap size={20} className="sm:w-7 sm:h-7" fill="white" />
-               <span className="text-[8px] sm:text-[9px] font-black uppercase mt-1 tracking-widest">Premium</span>
+              <Zap size={20} className="sm:w-7 sm:h-7" fill="white" />
+              <span className="text-[8px] sm:text-[9px] font-black uppercase mt-1 tracking-widest">Premium</span>
             </div>
-            
+
             <h3 className="text-2xl sm:text-3xl md:text-4xl font-black mb-2 sm:mb-3">{t.estimatorTitle}</h3>
             <p className="text-slate-400 mb-6 sm:mb-8 md:mb-12 text-sm sm:text-base font-medium opacity-70">{t.estimatorSub}</p>
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
-              <Counter label={t.suites} value={houseConfig.suites} icon={Award} subLabel="+Bed & Bath" onInc={() => updateSuites(houseConfig.suites+1)} onDec={() => updateSuites(Math.max(0, houseConfig.suites-1))} />
-              <Counter label={t.bedrooms} value={houseConfig.bedrooms} icon={BedDouble} onInc={() => setHouseConfig(p=>({...p, bedrooms:p.bedrooms+1}))} onDec={() => setHouseConfig(p=>({...p, bedrooms:Math.max(p.suites, p.bedrooms-1)}))} />
-              <Counter label={t.bathrooms} value={houseConfig.bathrooms} icon={Bath} onInc={() => setHouseConfig(p=>({...p, bathrooms:p.bathrooms+1}))} onDec={() => setHouseConfig(p=>({...p, bathrooms:Math.max(p.suites, p.bathrooms-1)}))} />
-              <Counter label={t.livingRooms} value={houseConfig.livingRooms} icon={Sofa} onInc={() => setHouseConfig(p=>({...p, livingRooms:p.livingRooms+1}))} onDec={() => setHouseConfig(p=>({...p, livingRooms:Math.max(0, p.livingRooms-1)}))} />
+              <Counter label={t.suites} value={houseConfig.suites} icon={Award} subLabel="+Bed & Bath" onInc={() => updateSuites(houseConfig.suites + 1)} onDec={() => updateSuites(Math.max(0, houseConfig.suites - 1))} />
+              <Counter label={t.bedrooms} value={houseConfig.bedrooms} icon={BedDouble} onInc={() => setHouseConfig(p => ({ ...p, bedrooms: p.bedrooms + 1 }))} onDec={() => setHouseConfig(p => ({ ...p, bedrooms: Math.max(p.suites, p.bedrooms - 1) }))} />
+              <Counter label={t.bathrooms} value={houseConfig.bathrooms} icon={Bath} onInc={() => setHouseConfig(p => ({ ...p, bathrooms: p.bathrooms + 1 }))} onDec={() => setHouseConfig(p => ({ ...p, bathrooms: Math.max(p.suites, p.bathrooms - 1) }))} />
+              <Counter label={t.livingRooms} value={houseConfig.livingRooms} icon={Sofa} onInc={() => setHouseConfig(p => ({ ...p, livingRooms: p.livingRooms + 1 }))} onDec={() => setHouseConfig(p => ({ ...p, livingRooms: Math.max(0, p.livingRooms - 1) }))} />
             </div>
 
             <div className="mt-6 sm:mt-8 md:mt-10 space-y-4 sm:space-y-6 md:space-y-8">
               <div className={`p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-[2rem] md:rounded-[2.5rem] border-2 transition-all ${darkMode ? 'bg-white/5 border-white/5' : 'bg-slate-50 border-slate-100 shadow-inner'}`}>
                 <div className="flex items-center justify-between mb-3 sm:mb-5">
-                   <div className="flex items-center gap-2 sm:gap-3 text-slate-400">
-                     <Ruler size={16} />
-                     <span className="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.2em]">{t.sqft}</span>
-                   </div>
-                   <span className="text-base sm:text-lg md:text-xl font-black text-[var(--accent-color)]">{houseConfig.sqft} sq ft</span>
+                  <div className="flex items-center gap-2 sm:gap-3 text-slate-400">
+                    <Ruler size={16} />
+                    <span className="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.2em]">{t.sqft}</span>
+                  </div>
+                  <span className="text-base sm:text-lg md:text-xl font-black text-[var(--accent-color)]">{houseConfig.sqft} sq ft</span>
                 </div>
-                <input 
-                  type="range" min="400" max="8000" step="100" value={houseConfig.sqft} 
-                  onChange={(e) => setHouseConfig(p=>({...p, sqft: parseInt(e.target.value)}))}
+                <input
+                  type="range" min="0" max="8000" step="100" value={houseConfig.sqft}
+                  onChange={(e) => setHouseConfig(p => ({ ...p, sqft: parseInt(e.target.value) }))}
                   className="w-full h-2 sm:h-3 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-[var(--accent-color)]"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3 sm:gap-4 md:gap-6">
-                <button onClick={() => setHouseConfig(p=>({...p, hasPool: !p.hasPool}))} className={`flex items-center gap-2 sm:gap-4 p-3 sm:p-4 md:p-6 rounded-xl sm:rounded-2xl border-2 transition-all hover:scale-[1.02] ${houseConfig.hasPool ? 'border-[var(--accent-color)] bg-[var(--accent-color)]/10 text-[var(--accent-color)] shadow-lg shadow-[var(--accent-color)]/10' : 'border-white/5 bg-white/5 text-slate-500'}`}>
+                <button onClick={() => setHouseConfig(p => ({ ...p, hasPool: !p.hasPool }))} className={`flex items-center gap-2 sm:gap-4 p-3 sm:p-4 md:p-6 rounded-xl sm:rounded-2xl border-2 transition-all hover:scale-[1.02] ${houseConfig.hasPool ? 'border-[var(--accent-color)] bg-[var(--accent-color)]/10 text-[var(--accent-color)] shadow-lg shadow-[var(--accent-color)]/10' : 'border-white/5 bg-white/5 text-slate-500'}`}>
                   <Waves size={18} className="sm:w-[22px] sm:h-[22px]" />
                   <span className="text-[9px] sm:text-[11px] font-black uppercase tracking-wider sm:tracking-widest">{t.pool}</span>
                 </button>
-                <button onClick={() => setHouseConfig(p=>({...p, hasGarden: !p.hasGarden}))} className={`flex items-center gap-2 sm:gap-4 p-3 sm:p-4 md:p-6 rounded-xl sm:rounded-2xl border-2 transition-all hover:scale-[1.02] ${houseConfig.hasGarden ? 'border-[var(--accent-color)] bg-[var(--accent-color)]/10 text-[var(--accent-color)] shadow-lg shadow-[var(--accent-color)]/10' : 'border-white/5 bg-white/5 text-slate-500'}`}>
+                <button onClick={() => setHouseConfig(p => ({ ...p, hasGarden: !p.hasGarden }))} className={`flex items-center gap-2 sm:gap-4 p-3 sm:p-4 md:p-6 rounded-xl sm:rounded-2xl border-2 transition-all hover:scale-[1.02] ${houseConfig.hasGarden ? 'border-[var(--accent-color)] bg-[var(--accent-color)]/10 text-[var(--accent-color)] shadow-lg shadow-[var(--accent-color)]/10' : 'border-white/5 bg-white/5 text-slate-500'}`}>
                   <TreePine size={18} className="sm:w-[22px] sm:h-[22px]" />
                   <span className="text-[9px] sm:text-[11px] font-black uppercase tracking-wider sm:tracking-widest">{t.garden}</span>
                 </button>
@@ -282,8 +284,8 @@ const App: React.FC = () => {
           <SectionTitle title={t.servicesTitle} subtitle={t.servicesSub} light={darkMode} />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 lg:gap-12 mt-10 sm:mt-16 md:mt-20">
             {SERVICES.map(s => (
-              <button 
-                key={s.id} 
+              <button
+                key={s.id}
                 onClick={() => handleServiceSelect(s.id)}
                 className="text-left p-6 sm:p-8 md:p-10 lg:p-14 rounded-2xl sm:rounded-[3rem] lg:rounded-[4rem] bg-white/5 border border-white/5 hover:border-[var(--accent-color)]/40 transition-all duration-500 group relative overflow-hidden flex flex-col items-start hover:-translate-y-2 shadow-2xl hover:shadow-[var(--accent-color)]/10"
               >
@@ -317,8 +319,8 @@ const App: React.FC = () => {
                     <p className="text-[var(--accent-color)] text-[10px] sm:text-[11px] font-black uppercase tracking-[0.3em] sm:tracking-[0.5em]">{t[member.role]}</p>
                     <h4 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-white leading-none">{member.name}</h4>
                     <div className="pt-4 sm:pt-6 md:pt-8 border-t border-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">
-                       <p className="text-white/60 text-sm sm:text-base md:text-lg italic mb-3 sm:mb-4 md:mb-6 font-bold">"{t[member.specialty]}"</p>
-                       <p className="text-white/80 text-sm sm:text-base md:text-lg leading-relaxed font-medium">{t[member.bio]}</p>
+                      <p className="text-white/60 text-sm sm:text-base md:text-lg italic mb-3 sm:mb-4 md:mb-6 font-bold">"{t[member.specialty]}"</p>
+                      <p className="text-white/80 text-sm sm:text-base md:text-lg leading-relaxed font-medium">{t[member.bio]}</p>
                     </div>
                   </div>
                 </div>
@@ -376,12 +378,12 @@ const App: React.FC = () => {
             </div>
             <div className={`lg:col-span-4 p-6 sm:p-8 md:p-10 lg:p-14 rounded-2xl sm:rounded-[3rem] lg:rounded-[4.5rem] border flex flex-col shadow-2xl relative ${darkMode ? 'bg-slate-900 border-white/5' : 'bg-slate-50 border-slate-100'}`}>
               <h3 className="text-2xl sm:text-3xl md:text-4xl font-black mb-6 sm:mb-8 md:mb-10">{t.contactTitle}</h3>
-              <form className="space-y-4 sm:space-y-6 md:space-y-8 flex-1" onSubmit={e=>e.preventDefault()}>
+              <form className="space-y-4 sm:space-y-6 md:space-y-8 flex-1" onSubmit={e => e.preventDefault()}>
                 <input type="text" placeholder={t.contactName} className={`w-full p-4 sm:p-5 md:p-7 rounded-xl sm:rounded-[1.5rem] outline-none transition-all border-2 text-base sm:text-lg font-medium ${darkMode ? 'bg-white/5 border-transparent focus:border-[var(--accent-color)] text-white' : 'bg-white border-slate-100 focus:border-[var(--accent-color)]'}`} />
                 <input type="email" placeholder={t.contactEmail} className={`w-full p-4 sm:p-5 md:p-7 rounded-xl sm:rounded-[1.5rem] outline-none transition-all border-2 text-base sm:text-lg font-medium ${darkMode ? 'bg-white/5 border-transparent focus:border-[var(--accent-color)] text-white' : 'bg-white border-slate-100 focus:border-[var(--accent-color)]'}`} />
-                <textarea 
-                  rows={5} 
-                  placeholder={t.contactMsg} 
+                <textarea
+                  rows={5}
+                  placeholder={t.contactMsg}
                   value={formMessage}
                   onChange={(e) => setFormMessage(e.target.value)}
                   className={`w-full p-4 sm:p-5 md:p-7 rounded-xl sm:rounded-[1.5rem] outline-none transition-all border-2 resize-none text-base sm:text-lg font-medium ${darkMode ? 'bg-white/5 border-transparent focus:border-[var(--accent-color)] text-white' : 'bg-white border-slate-100 focus:border-[var(--accent-color)]'}`}
@@ -404,15 +406,15 @@ const App: React.FC = () => {
               <span className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tighter text-white">LUMINA<span className="text-[var(--accent-color)]">CLEAN</span></span>
             </div>
             <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8 lg:gap-12">
-               {NAV_LINKS.map(l => (
-                 <button key={l.href} onClick={() => scrollToId(l.href)} className="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-slate-500 hover:text-white transition-colors">{t[l.key]}</button>
-               ))}
+              {NAV_LINKS.map(l => (
+                <button key={l.href} onClick={() => scrollToId(l.href)} className="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-slate-500 hover:text-white transition-colors">{t[l.key]}</button>
+              ))}
             </div>
             <p className="text-slate-600 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.4em]">© 2025 Lumina Cleaning Pros. {t.copyright}</p>
           </div>
         </div>
       </footer>
-      
+
       <FloatingActions />
     </div>
   );
