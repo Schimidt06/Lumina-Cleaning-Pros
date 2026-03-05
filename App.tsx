@@ -475,7 +475,7 @@ ${extrasStr ? `- Extras: ${extrasStr}` : ''}`;
               <div key={i} className="animate-on-scroll group relative rounded-[2rem] sm:rounded-[3rem] md:rounded-[4.5rem] overflow-hidden aspect-[16/10] shadow-2xl">
                 <div className="absolute inset-0 flex">
                   <div className="w-1/2 relative">
-                    <img src={item.beforeImg} className="w-full h-full object-cover grayscale brightness-75" alt="Before" />
+                    <img src={item.beforeImg} className="w-full h-full object-cover brightness-75" alt="Before" />
                     <div className="absolute top-4 left-4 sm:top-8 sm:left-8 px-3 py-1 sm:px-4 sm:py-2 bg-black/50 backdrop-blur-md rounded-lg text-[10px] font-black uppercase text-white tracking-widest">Before</div>
                   </div>
                   <div className="w-1/2 relative">
