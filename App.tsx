@@ -123,11 +123,7 @@ const App: React.FC = () => {
     return () => clearTimeout(timer);
   }, [estimate, displayEstimate]);
 
-<<<<<<< HEAD
   // Scroll Reveal Animation — supports all scroll-reveal variants
-=======
-  // Scroll Reveal Animation
->>>>>>> 0ecfa5ab331dce1c386264a95e98f295f89583c4
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -138,15 +134,9 @@ const App: React.FC = () => {
           }
         });
       },
-<<<<<<< HEAD
       { threshold: 0.08, rootMargin: '0px 0px -60px 0px' }
     );
     document.querySelectorAll('.animate-on-scroll, .animate-on-scroll-left, .animate-on-scroll-right, .animate-on-scroll-scale').forEach(el => observer.observe(el));
-=======
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
-    );
-    document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
->>>>>>> 0ecfa5ab331dce1c386264a95e98f295f89583c4
     return () => observer.disconnect();
   }, []);
 
@@ -218,11 +208,6 @@ ${extrasStr ? `- Extras: ${extrasStr}` : ''}`;
         .bg-accent { background-color: var(--accent-color); }
         .border-accent { border-color: var(--accent-color); }
         .desktop-container { max-width: 1400px; margin: 0 auto; }
-<<<<<<< HEAD
-=======
-        .animate-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease-out, transform 0.7s ease-out; }
-        .animate-revealed { opacity: 1; transform: translateY(0); }
->>>>>>> 0ecfa5ab331dce1c386264a95e98f295f89583c4
       `}</style>
 
       {/* Navbar */}
@@ -276,7 +261,6 @@ ${extrasStr ? `- Extras: ${extrasStr}` : ''}`;
 
         <div className="desktop-container px-4 sm:px-6 grid lg:grid-cols-2 gap-10 md:gap-16 lg:gap-24 items-center">
           <div className="space-y-8 sm:space-y-12">
-<<<<<<< HEAD
             <div className="inline-block px-4 sm:px-5 py-2 bg-[var(--accent-color)]/10 border border-[var(--accent-color)]/20 rounded-full text-[var(--accent-color)] text-[10px] sm:text-[11px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] animate-fade-in-down stagger-1">
               {t.heroBadge}
             </div>
@@ -295,25 +279,6 @@ ${extrasStr ? `- Extras: ${extrasStr}` : ''}`;
                     onClick={() => setCurrentVibe(v)}
                     className={`flex items-center gap-2 sm:gap-5 px-3 sm:px-6 md:px-8 py-3 sm:py-5 rounded-xl sm:rounded-[2rem] border-2 transition-all duration-300 transform hover:scale-105 active:scale-95 ${currentVibe.id === v.id ? 'border-[var(--accent-color)] bg-[var(--accent-color)]/10 shadow-2xl shadow-[var(--accent-color)]/20' : 'border-white/5 bg-white/5'}`}
                     style={{ animationDelay: `${0.4 + vi * 0.08}s` }}
-=======
-            <div className="inline-block px-4 sm:px-5 py-2 bg-[var(--accent-color)]/10 border border-[var(--accent-color)]/20 rounded-full text-[var(--accent-color)] text-[10px] sm:text-[11px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] animate-fade-in">
-              {t.heroBadge}
-            </div>
-            <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-black tracking-tighter leading-[0.85] animate-fade-in">
-              {heroParts[0]}<br />
-              <span className="text-[var(--accent-color)]">{heroParts[1]}</span>
-            </h1>
-            <p className="text-base sm:text-lg md:text-xl text-slate-400 max-w-lg font-medium leading-relaxed opacity-80">{t.heroSub}</p>
-
-            <div className="space-y-4 sm:space-y-6">
-              <p className="text-[10px] font-black uppercase tracking-[0.3em] sm:tracking-[0.4em] text-slate-500">{t.vibeTitle}</p>
-              <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-2 sm:gap-4">
-                {VIBES.map(v => (
-                  <button
-                    key={v.id}
-                    onClick={() => setCurrentVibe(v)}
-                    className={`flex items-center gap-2 sm:gap-5 px-3 sm:px-6 md:px-8 py-3 sm:py-5 rounded-xl sm:rounded-[2rem] border-2 transition-all transform hover:scale-105 active:scale-95 ${currentVibe.id === v.id ? 'border-[var(--accent-color)] bg-[var(--accent-color)]/10 shadow-2xl shadow-[var(--accent-color)]/20' : 'border-white/5 bg-white/5'}`}
->>>>>>> 0ecfa5ab331dce1c386264a95e98f295f89583c4
                   >
                     <span className="text-xl sm:text-3xl">{v.icon}</span>
                     <span className={`text-[9px] sm:text-xs font-black uppercase tracking-wider sm:tracking-widest ${currentVibe.id === v.id ? 'text-[var(--accent-color)]' : 'text-slate-400'}`}>{t[v.key]}</span>
@@ -322,23 +287,14 @@ ${extrasStr ? `- Extras: ${extrasStr}` : ''}`;
               </div>
             </div>
 
-<<<<<<< HEAD
             <div className="max-w-md animate-fade-in-up stagger-5">
-=======
-            <div className="max-w-md">
->>>>>>> 0ecfa5ab331dce1c386264a95e98f295f89583c4
               <RealTimeDashboard lang={lang} darkMode={darkMode} />
             </div>
           </div>
 
           {/* Quote Estimator Card */}
-<<<<<<< HEAD
           <div className={`p-6 sm:p-8 md:p-12 lg:p-16 rounded-[2rem] sm:rounded-[3rem] md:rounded-[4.5rem] border transition-all duration-700 shadow-2xl relative group animate-scale-in stagger-3 ${darkMode ? 'bg-slate-900/40 border-white/5 backdrop-blur-3xl' : 'bg-white border-slate-100'}`}>
             <div className="absolute -top-4 -right-4 sm:-top-8 sm:-right-8 p-4 sm:p-6 md:p-8 bg-[var(--accent-color)] text-white rounded-xl sm:rounded-[2rem] md:rounded-[2.5rem] shadow-2xl rotate-12 flex flex-col items-center group-hover:rotate-0 transition-transform duration-500 animate-float">
-=======
-          <div className={`p-6 sm:p-8 md:p-12 lg:p-16 rounded-[2rem] sm:rounded-[3rem] md:rounded-[4.5rem] border transition-all duration-700 shadow-2xl relative group ${darkMode ? 'bg-slate-900/40 border-white/5 backdrop-blur-3xl' : 'bg-white border-slate-100'}`}>
-            <div className="absolute -top-4 -right-4 sm:-top-8 sm:-right-8 p-4 sm:p-6 md:p-8 bg-[var(--accent-color)] text-white rounded-xl sm:rounded-[2rem] md:rounded-[2.5rem] shadow-2xl rotate-12 flex flex-col items-center group-hover:rotate-0 transition-transform duration-500">
->>>>>>> 0ecfa5ab331dce1c386264a95e98f295f89583c4
               <Zap size={20} className="sm:w-7 sm:h-7" fill="white" />
               <span className="text-[8px] sm:text-[9px] font-black uppercase mt-1 tracking-widest">Premium</span>
             </div>
@@ -398,17 +354,10 @@ ${extrasStr ? `- Extras: ${extrasStr}` : ''}`;
       {/* Partners / Certifications Bar */}
       <div className={`py-8 sm:py-12 border-y ${darkMode ? 'bg-slate-900/30 border-white/5' : 'bg-slate-50 border-slate-100'}`}>
         <div className="desktop-container px-4 sm:px-6">
-<<<<<<< HEAD
           <p className="animate-on-scroll text-center text-[10px] sm:text-[11px] font-black uppercase tracking-[0.3em] sm:tracking-[0.5em] text-slate-500 mb-4 sm:mb-6">{t.partnersTitle}</p>
           <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-10 lg:gap-16">
             {PARTNERS.map((p, i) => (
               <div key={i} className={`animate-on-scroll stagger-${i + 1} flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 rounded-xl sm:rounded-2xl border transition-all duration-300 hover:scale-105 hover:-translate-y-1 ${darkMode ? 'bg-white/5 border-white/5' : 'bg-white border-slate-100 shadow-sm'}`}>
-=======
-          <p className="text-center text-[10px] sm:text-[11px] font-black uppercase tracking-[0.3em] sm:tracking-[0.5em] text-slate-500 mb-4 sm:mb-6">{t.partnersTitle}</p>
-          <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-10 lg:gap-16">
-            {PARTNERS.map((p, i) => (
-              <div key={i} className={`flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 rounded-xl sm:rounded-2xl border transition-all hover:scale-105 ${darkMode ? 'bg-white/5 border-white/5' : 'bg-white border-slate-100 shadow-sm'}`}>
->>>>>>> 0ecfa5ab331dce1c386264a95e98f295f89583c4
                 <span className="text-lg sm:text-2xl">{p.icon}</span>
                 <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-wider sm:tracking-widest">{p.name}</span>
               </div>
@@ -422,7 +371,6 @@ ${extrasStr ? `- Extras: ${extrasStr}` : ''}`;
         <div className="desktop-container px-4 sm:px-6">
           <SectionTitle title={t.servicesTitle} subtitle={t.servicesSub} light={darkMode} />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 lg:gap-12 mt-10 sm:mt-16 md:mt-20">
-<<<<<<< HEAD
             {SERVICES.map((s, si) => (
               <button
                 key={s.id}
@@ -431,16 +379,6 @@ ${extrasStr ? `- Extras: ${extrasStr}` : ''}`;
               >
                 <div className="absolute -right-6 -top-6 w-32 h-32 bg-[var(--accent-color)]/5 rounded-full blur-3xl group-hover:bg-[var(--accent-color)]/20 transition-all duration-700"></div>
                 <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl sm:rounded-[1.5rem] md:rounded-[2rem] bg-[var(--accent-color)] flex items-center justify-center text-white mb-5 sm:mb-8 md:mb-10 shadow-2xl shadow-[var(--accent-color)]/20 transform group-hover:rotate-12 group-hover:scale-110 transition-all duration-500">
-=======
-            {SERVICES.map(s => (
-              <button
-                key={s.id}
-                onClick={() => handleServiceSelect(s.id)}
-                className="text-left p-6 sm:p-8 md:p-10 lg:p-14 rounded-2xl sm:rounded-[3rem] lg:rounded-[4rem] bg-white/5 border border-white/5 hover:border-[var(--accent-color)]/40 transition-all duration-500 group relative overflow-hidden flex flex-col items-start hover:-translate-y-2 shadow-2xl hover:shadow-[var(--accent-color)]/10"
-              >
-                <div className="absolute -right-6 -top-6 w-32 h-32 bg-[var(--accent-color)]/5 rounded-full blur-3xl group-hover:bg-[var(--accent-color)]/10 transition-all"></div>
-                <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl sm:rounded-[1.5rem] md:rounded-[2rem] bg-[var(--accent-color)] flex items-center justify-center text-white mb-5 sm:mb-8 md:mb-10 shadow-2xl shadow-[var(--accent-color)]/20 transform group-hover:rotate-12 transition-transform">
->>>>>>> 0ecfa5ab331dce1c386264a95e98f295f89583c4
                   {s.icon}
                 </div>
                 <h4 className="text-xl sm:text-2xl md:text-3xl font-black mb-3 sm:mb-4 md:mb-6 group-hover:text-[var(--accent-color)] transition-colors">{t[`service_${s.id}_title`]}</h4>
@@ -454,10 +392,10 @@ ${extrasStr ? `- Extras: ${extrasStr}` : ''}`;
             ))}
           </div>
         </div>
-      </section>
+      </section >
 
       {/* How It Works Section */}
-      <section id="how" className={`py-16 sm:py-24 md:py-32 lg:py-48 ${darkMode ? 'bg-slate-900/20' : 'bg-slate-50'}`}>
+      < section id="how" className={`py-16 sm:py-24 md:py-32 lg:py-48 ${darkMode ? 'bg-slate-900/20' : 'bg-slate-50'}`}>
         <div className="desktop-container px-4 sm:px-6">
           <div className="animate-on-scroll">
             <SectionTitle title={t.howTitle} subtitle={t.howSub} light={darkMode} />
@@ -483,20 +421,15 @@ ${extrasStr ? `- Extras: ${extrasStr}` : ''}`;
             })}
           </div>
         </div>
-      </section>
+      </section >
 
       {/* Meet the Artisans */}
-      <section id="about" className={`py-16 sm:py-24 md:py-32 lg:py-48 ${darkMode ? 'bg-slate-900/20' : 'bg-slate-50'}`}>
+      < section id="about" className={`py-16 sm:py-24 md:py-32 lg:py-48 ${darkMode ? 'bg-slate-900/20' : 'bg-slate-50'}`}>
         <div className="desktop-container px-4 sm:px-6">
           <SectionTitle title={t.meetTeam} subtitle={t.teamSub} light={darkMode} />
           <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 md:gap-12 mt-10 sm:mt-16 md:mt-20">
-<<<<<<< HEAD
             {TEAM.map((member, mi) => (
               <div key={member.id} className={`animate-on-scroll-scale stagger-${mi + 1} group relative overflow-hidden rounded-[2rem] sm:rounded-[3rem] md:rounded-[4.5rem] aspect-[3/4.2] border border-white/5 bg-slate-900 shadow-2xl`}>
-=======
-            {TEAM.map((member) => (
-              <div key={member.id} className="group relative overflow-hidden rounded-[2rem] sm:rounded-[3rem] md:rounded-[4.5rem] aspect-[3/4.2] border border-white/5 bg-slate-900 shadow-2xl">
->>>>>>> 0ecfa5ab331dce1c386264a95e98f295f89583c4
                 <img src={member.image} alt={member.name} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent flex flex-col justify-end p-6 sm:p-8 md:p-14 translate-y-16 sm:translate-y-20 md:translate-y-28 group-hover:translate-y-0 transition-transform duration-700">
                   <div className="space-y-3 sm:space-y-4 md:space-y-6">
@@ -511,17 +444,16 @@ ${extrasStr ? `- Extras: ${extrasStr}` : ''}`;
               </div>
             ))}
           </div>
-        </div>
-      </section>
+        </div >
+      </section >
 
       {/* Before/After Gallery Section */}
-      <section className="py-16 sm:py-24 md:py-32 lg:py-48 overflow-hidden">
+      < section className="py-16 sm:py-24 md:py-32 lg:py-48 overflow-hidden" >
         <div className="desktop-container px-4 sm:px-6">
           <div className="animate-on-scroll">
             <SectionTitle title={lang === 'en' ? "Visual Proof" : "Resultados Visíveis"} subtitle={lang === 'en' ? "Real transformations by our premium teams." : "Transformações reais de nossos times premium."} light={darkMode} />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 mt-10 sm:mt-16 md:mt-20">
-<<<<<<< HEAD
             {[
               {
                 beforeImg: '/images/kitchen_before.png',
@@ -548,53 +480,31 @@ ${extrasStr ? `- Extras: ${extrasStr}` : ''}`;
                   </div>
                   <div className="w-1/2 relative">
                     <img src={item.afterImg} className="w-full h-full object-cover" alt="After" />
-=======
-            {[1, 2].map(i => (
-              <div key={i} className="animate-on-scroll group relative rounded-[2rem] sm:rounded-[3rem] md:rounded-[4.5rem] overflow-hidden aspect-[16/10] shadow-2xl">
-                <div className="absolute inset-0 flex">
-                  <div className="w-1/2 relative">
-                    <img src={`https://images.unsplash.com/photo-1581578731548-c64695ce6958?auto=format&fit=crop&q=80&w=800`} className="w-full h-full object-cover grayscale brightness-50" alt="Before" />
-                    <div className="absolute top-4 left-4 sm:top-8 sm:left-8 px-3 py-1 sm:px-4 sm:py-2 bg-black/50 backdrop-blur-md rounded-lg text-[10px] font-black uppercase text-white tracking-widest">Before</div>
-                  </div>
-                  <div className="w-1/2 relative">
-                    <img src={`https://images.unsplash.com/photo-1528740561666-dc2479dc08ab?auto=format&fit=crop&q=80&w=800`} className="w-full h-full object-cover" alt="After" />
->>>>>>> 0ecfa5ab331dce1c386264a95e98f295f89583c4
                     <div className="absolute top-4 right-4 sm:top-8 sm:right-8 px-3 py-1 sm:px-4 sm:py-2 bg-[var(--accent-color)] rounded-lg text-[10px] font-black uppercase text-white tracking-widest shadow-lg shadow-[var(--accent-color)]/30">After</div>
                   </div>
                 </div>
                 <div className="absolute inset-x-0 bottom-0 p-6 sm:p-10 md:p-14 bg-gradient-to-t from-slate-950/80 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-500">
                   <h4 className="text-white text-xl sm:text-2xl md:text-3xl font-black mb-2 sm:mb-3">
-<<<<<<< HEAD
                     {lang === 'en' ? item.titleEn : item.titlePt}
                   </h4>
                   <p className="text-white/70 text-sm sm:text-base font-medium">
                     {lang === 'en' ? item.descEn : item.descPt}
-=======
-                    {i === 1 ? (lang === 'en' ? 'Kitchen Revival' : 'Revitalização de Cozinha') : (lang === 'en' ? 'Living Room Detail' : 'Detalhamento de Sala')}
-                  </h4>
-                  <p className="text-white/70 text-sm sm:text-base font-medium">
-                    {i === 1 ? (lang === 'en' ? 'Deep grease removal and metal polish.' : 'Remoção de gordura e polimento de metais.') : (lang === 'en' ? 'Meticulous dusting and upholstery care.' : 'Aspiração meticulosa e cuidado com estofados.')}
->>>>>>> 0ecfa5ab331dce1c386264a95e98f295f89583c4
                   </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+                </div >
+              </div >
+            ))
+            }
+          </div >
+        </div >
+      </section >
 
       {/* Reviews with Company Response */}
-      <section id="reviews" className="py-16 sm:py-24 md:py-32 lg:py-48">
+      < section id="reviews" className="py-16 sm:py-24 md:py-32 lg:py-48" >
         <div className="desktop-container px-4 sm:px-6">
           <SectionTitle title={t.reviewsTitle} subtitle={t.reviewsSub} light={darkMode} />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-12 mt-10 sm:mt-16 md:mt-20">
-<<<<<<< HEAD
             {TESTIMONIALS.map((review, ri) => (
               <div key={review.id} className={`animate-on-scroll stagger-${ri + 1} flex flex-col gap-4 sm:gap-6 md:gap-8 group`}>
-=======
-            {TESTIMONIALS.map((review) => (
-              <div key={review.id} className="flex flex-col gap-4 sm:gap-6 md:gap-8 group">
->>>>>>> 0ecfa5ab331dce1c386264a95e98f295f89583c4
                 <div className={`p-6 sm:p-8 md:p-12 rounded-2xl sm:rounded-[3rem] lg:rounded-[4rem] relative transform group-hover:-rotate-1 transition-all duration-500 ${darkMode ? 'bg-white/5 border border-white/5' : 'bg-white border border-slate-100 shadow-xl'}`}>
                   <div className="flex gap-1 sm:gap-1.5 mb-4 sm:mb-6 md:mb-8">
                     {[...Array(review.stars)].map((_, i) => <Star key={i} size={16} className="sm:w-5 sm:h-5 text-[var(--accent-color)]" fill="var(--accent-color)" />)}
@@ -611,11 +521,7 @@ ${extrasStr ? `- Extras: ${extrasStr}` : ''}`;
                     </div>
                   </div>
                 </div>
-<<<<<<< HEAD
                 <div className={`ml-4 sm:ml-8 md:ml-12 p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-[1.5rem] md:rounded-[2rem] border-l-4 border-[var(--accent-color)] flex gap-3 sm:gap-5 items-start ${darkMode ? 'bg-[var(--accent-color)]/5' : 'bg-slate-50'}`}>
-=======
-                <div className={`ml-4 sm:ml-8 md:ml-12 p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-[1.5rem] md:rounded-[2rem] border-l-4 border-[var(--accent-color)] flex gap-3 sm:gap-5 items-start animate-fade-in ${darkMode ? 'bg-[var(--accent-color)]/5' : 'bg-slate-50'}`}>
->>>>>>> 0ecfa5ab331dce1c386264a95e98f295f89583c4
                   <MessageSquare size={16} className="sm:w-5 sm:h-5 text-[var(--accent-color)] mt-1 sm:mt-1.5 flex-shrink-0" />
                   <div>
                     <p className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-[var(--accent-color)] mb-1 sm:mb-2">{t.repliedBy}</p>
@@ -623,13 +529,14 @@ ${extrasStr ? `- Extras: ${extrasStr}` : ''}`;
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+            ))
+            }
+          </div >
+        </div >
+      </section >
 
       {/* FAQ Section */}
-      <section className={`py-16 sm:py-24 md:py-32 lg:py-48 ${darkMode ? '' : 'bg-slate-50'}`}>
+      < section className={`py-16 sm:py-24 md:py-32 lg:py-48 ${darkMode ? '' : 'bg-slate-50'}`}>
         <div className="desktop-container px-4 sm:px-6">
           <div className="animate-on-scroll">
             <SectionTitle title={t.faqTitle} subtitle={t.faqSub} light={darkMode} />
@@ -659,12 +566,11 @@ ${extrasStr ? `- Extras: ${extrasStr}` : ''}`;
             ))}
           </div>
         </div>
-      </section>
+      </section >
 
       {/* Final Contact Form & Area Search */}
-      <section id="contact" ref={contactRef} className="py-16 sm:py-24 md:py-32 lg:py-48">
+      < section id="contact" ref={contactRef} className="py-16 sm:py-24 md:py-32 lg:py-48" >
         <div className="desktop-container px-4 sm:px-6">
-<<<<<<< HEAD
           <h2 className="animate-on-scroll text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-black tracking-tighter mb-10 sm:mb-16 md:mb-24 text-center lg:text-left leading-[0.85]">
             {t.contactGlow}
           </h2>
@@ -673,16 +579,6 @@ ${extrasStr ? `- Extras: ${extrasStr}` : ''}`;
               <InteractiveMap darkMode={darkMode} lang={lang} onBookNow={() => scrollToId('contact')} />
             </div>
             <div className={`lg:col-span-4 p-6 sm:p-8 md:p-10 lg:p-14 rounded-2xl sm:rounded-[3rem] lg:rounded-[4.5rem] border flex flex-col shadow-2xl relative animate-on-scroll-right stagger-2 ${darkMode ? 'bg-slate-900 border-white/5' : 'bg-slate-50 border-slate-100'}`}>
-=======
-          <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-black tracking-tighter mb-10 sm:mb-16 md:mb-24 text-center lg:text-left leading-[0.85]">
-            {t.contactGlow}
-          </h2>
-          <div className="grid lg:grid-cols-12 gap-6 sm:gap-8 md:gap-12 lg:gap-16 items-stretch">
-            <div className="lg:col-span-8 flex">
-              <InteractiveMap darkMode={darkMode} lang={lang} onBookNow={() => scrollToId('contact')} />
-            </div>
-            <div className={`lg:col-span-4 p-6 sm:p-8 md:p-10 lg:p-14 rounded-2xl sm:rounded-[3rem] lg:rounded-[4.5rem] border flex flex-col shadow-2xl relative ${darkMode ? 'bg-slate-900 border-white/5' : 'bg-slate-50 border-slate-100'}`}>
->>>>>>> 0ecfa5ab331dce1c386264a95e98f295f89583c4
               <h3 className="text-2xl sm:text-3xl md:text-4xl font-black mb-6 sm:mb-8 md:mb-10">{t.contactTitle}</h3>
               <form className="space-y-4 sm:space-y-6 md:space-y-8 flex-1" onSubmit={handleFormSubmit}>
                 <input type="text" placeholder={t.contactName} className={`w-full p-4 sm:p-5 md:p-7 rounded-xl sm:rounded-[1.5rem] outline-none transition-all border-2 text-base sm:text-lg font-medium ${darkMode ? 'bg-white/5 border-transparent focus:border-[var(--accent-color)] text-white' : 'bg-white border-slate-100 focus:border-[var(--accent-color)]'}`} />
@@ -713,28 +609,20 @@ ${extrasStr ? `- Extras: ${extrasStr}` : ''}`;
       {/* Simplified Footer for PC */}
       <footer className="py-12 sm:py-16 md:py-24 lg:py-32 bg-slate-950 border-t border-white/5">
         <div className="desktop-container px-4 sm:px-6">
-<<<<<<< HEAD
           <div className="animate-on-scroll flex flex-col md:flex-row justify-between items-center gap-8 sm:gap-10 md:gap-16 text-center md:text-left">
-=======
-          <div className="flex flex-col md:flex-row justify-between items-center gap-8 sm:gap-10 md:gap-16 text-center md:text-left">
->>>>>>> 0ecfa5ab331dce1c386264a95e98f295f89583c4
             <div className="flex items-center gap-3 sm:gap-4">
               <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-[var(--accent-color)] shadow-2xl shadow-[var(--accent-color)]/20"><ShieldCheck className="text-white w-6 h-6 sm:w-8 sm:h-8" /></div>
               <span className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tighter text-white">LUMINA<span className="text-[var(--accent-color)]">CLEAN</span></span>
             </div>
             <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8 lg:gap-12">
               {NAV_LINKS.map(l => (
-<<<<<<< HEAD
                 <button key={l.href} onClick={() => scrollToId(l.href)} className="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-slate-500 hover:text-white transition-colors duration-300 hover:-translate-y-0.5">{t[l.key]}</button>
-=======
-                <button key={l.href} onClick={() => scrollToId(l.href)} className="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-slate-500 hover:text-white transition-colors">{t[l.key]}</button>
->>>>>>> 0ecfa5ab331dce1c386264a95e98f295f89583c4
               ))}
             </div>
             <p className="text-slate-600 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] sm:tracking-[0.4em]">© 2025 Lumina Cleaning Pros. {t.copyright}</p>
           </div>
         </div>
-      </footer>
+      </footer >
 
       <FloatingActions whatsappMessage={whatsappMessage} />
 
@@ -746,7 +634,7 @@ ${extrasStr ? `- Extras: ${extrasStr}` : ''}`;
           <button onClick={() => setShowToast(false)} className="ml-2 hover:opacity-70"><X size={16} /></button>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

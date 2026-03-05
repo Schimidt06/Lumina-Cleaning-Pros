@@ -76,23 +76,14 @@ export const RealTimeDashboard: React.FC<RealTimeDashboardProps> = ({ lang, dark
             key={`${act.team}-${idx}`}
             className={`flex items-center justify-between p-3 sm:p-4 md:p-5 rounded-xl sm:rounded-2xl border transition-all duration-700 transform ${idx === 0 ? 'scale-[1.02] sm:scale-105 shadow-xl border-[var(--accent-color)]/20' : 'opacity-40 border-transparent'} ${darkMode ? 'bg-white/5' : 'bg-slate-50'}`}
           >
-<<<<<<< HEAD
             <div className="flex items-center gap-3 sm:gap-5 min-w-0">
-=======
-            <div className="flex items-center gap-5">
->>>>>>> 0ecfa5ab331dce1c386264a95e98f295f89583c4
               <div className={`p-2.5 rounded-xl ${act.status === 'Completed' ? 'bg-green-500/20 text-green-500' : act.status === 'In Progress' ? 'bg-[var(--accent-color)]/20 text-[var(--accent-color)]' : 'bg-amber-500/20 text-amber-500'}`}>
                 {act.status === 'Completed' ? <CheckCircle size={16} /> : act.status === 'In Progress' ? <Loader2 size={16} className="animate-spin" /> : <Clock size={16} />}
               </div>
               <div>
                 <p className={`text-xs font-black uppercase tracking-widest ${darkMode ? 'text-white' : 'text-slate-900'}`}>{act.type}</p>
-<<<<<<< HEAD
                 <div className="flex items-center gap-1.5 text-[9px] text-slate-500 font-bold mt-1 truncate">
                   <MapPin size={10} className="text-[var(--accent-color)] flex-shrink-0" /> <span className="truncate">{act.loc}</span>
-=======
-                <div className="flex items-center gap-1.5 text-[9px] text-slate-500 font-bold mt-1">
-                  <MapPin size={10} className="text-[var(--accent-color)]" /> {act.loc}
->>>>>>> 0ecfa5ab331dce1c386264a95e98f295f89583c4
                 </div>
               </div>
             </div>
