@@ -11,7 +11,11 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({ whatsappMessag
   const waUrl = `https://wa.me/5511999999999${encodedMsg ? `?text=${encodedMsg}` : ''}`;
 
   return (
+<<<<<<< HEAD
     <div className="fixed bottom-6 right-6 flex flex-col gap-4 z-[9999]" style={{ animation: 'slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1s both' }}>
+=======
+    <div className="fixed bottom-6 right-6 flex flex-col gap-4 z-[9999]">
+>>>>>>> 0ecfa5ab331dce1c386264a95e98f295f89583c4
       {/* WhatsApp Button */}
       <a
         href={waUrl}
@@ -22,7 +26,11 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({ whatsappMessag
         <div className="absolute right-full mr-4 bg-white text-slate-900 px-4 py-2 rounded-xl shadow-xl font-black text-sm uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none border border-slate-100 hidden sm:block">
           WhatsApp
         </div>
+<<<<<<< HEAD
         <div className="bg-green-500 hover:brightness-110 text-white p-4 sm:p-5 rounded-[1.5rem] shadow-2xl shadow-green-500/30 transition-all hover:scale-110 active:scale-95 flex items-center justify-center animate-pulse-glow" style={{ '--accent-color': '#22c55e' } as any}>
+=======
+        <div className="bg-green-500 hover:brightness-110 text-white p-4 sm:p-5 rounded-[1.5rem] shadow-2xl shadow-green-500/30 transition-all hover:scale-110 active:scale-95 flex items-center justify-center">
+>>>>>>> 0ecfa5ab331dce1c386264a95e98f295f89583c4
           <MessageCircle className="w-7 h-7" fill="currentColor" />
         </div>
       </a>

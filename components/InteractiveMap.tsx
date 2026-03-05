@@ -57,7 +57,11 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({ darkMode, lang, 
         style={{ backgroundImage: `radial-gradient(circle, #3b82f6 1.5px, transparent 1.5px)`, backgroundSize: '30px 30px' }}></div>
 
       {/* Control Header */}
+<<<<<<< HEAD
       <div className={`relative z-10 p-4 sm:p-6 md:p-10 border-b flex flex-col md:flex-row md:items-center justify-between gap-4 sm:gap-6 ${darkMode ? 'bg-white/[0.02] border-white/5' : 'bg-slate-50/50 border-slate-100'
+=======
+      <div className={`relative z-10 p-6 md:p-10 border-b flex flex-col md:flex-row md:items-center justify-between gap-6 ${darkMode ? 'bg-white/[0.02] border-white/5' : 'bg-slate-50/50 border-slate-100'
+>>>>>>> 0ecfa5ab331dce1c386264a95e98f295f89583c4
         }`}>
         <div className="flex-1 space-y-2">
           <div className="flex items-center gap-2">
@@ -66,7 +70,11 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({ darkMode, lang, 
             </div>
             <span className="text-[10px] font-black uppercase tracking-[0.4em] text-blue-500">{t.mapTitle}</span>
           </div>
+<<<<<<< HEAD
           <h4 className={`text-xl sm:text-2xl md:text-3xl font-black tracking-tighter ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+=======
+          <h4 className={`text-2xl md:text-3xl font-black tracking-tighter ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+>>>>>>> 0ecfa5ab331dce1c386264a95e98f295f89583c4
             {t.mapSub}
           </h4>
         </div>
@@ -92,6 +100,7 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({ darkMode, lang, 
       {/* Dashboard Body */}
       <div className="relative z-10 flex flex-col lg:grid lg:grid-cols-12 flex-1">
         {/* State Navigator Sidebar */}
+<<<<<<< HEAD
         <div className={`lg:col-span-4 p-4 sm:p-6 md:p-8 flex flex-col border-b lg:border-b-0 lg:border-r ${darkMode ? 'bg-black/10 border-white/5' : 'bg-slate-50/30 border-slate-100'
           }`}>
           <p className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-500 mb-4 sm:mb-6 flex items-center gap-2">
@@ -99,6 +108,15 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({ darkMode, lang, 
           </p>
 
           <div className="space-y-2 sm:space-y-3 overflow-y-auto max-h-[280px] sm:max-h-[350px] lg:max-h-none pr-1 custom-scrollbar">
+=======
+        <div className={`lg:col-span-4 p-6 md:p-8 flex flex-col border-b lg:border-b-0 lg:border-r ${darkMode ? 'bg-black/10 border-white/5' : 'bg-slate-50/30 border-slate-100'
+          }`}>
+          <p className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-500 mb-6 flex items-center gap-2">
+            <Zap size={12} className="text-blue-500" /> {hasInput ? t.mapResults : t.mapAvailableRegions}
+          </p>
+
+          <div className="space-y-3 overflow-y-auto max-h-[350px] lg:max-h-none pr-1 custom-scrollbar">
+>>>>>>> 0ecfa5ab331dce1c386264a95e98f295f89583c4
             {hasInput && !isDebouncing ? (
               hasResults ? (
                 filteredResults.map((result, i) => (
@@ -145,14 +163,22 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({ darkMode, lang, 
         </div>
 
         {/* Dynamic Detail Panel */}
+<<<<<<< HEAD
         <div className={`lg:col-span-8 p-6 sm:p-8 md:p-12 flex flex-col justify-center items-center text-center relative overflow-hidden ${darkMode ? 'bg-slate-900/50' : 'bg-slate-50/20'
+=======
+        <div className={`lg:col-span-8 p-8 md:p-12 flex flex-col justify-center items-center text-center relative overflow-hidden ${darkMode ? 'bg-slate-900/50' : 'bg-slate-50/20'
+>>>>>>> 0ecfa5ab331dce1c386264a95e98f295f89583c4
           }`}>
           {/* Animated Background Focal Point */}
           <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
             <div className="w-[120%] aspect-square rounded-full border border-blue-500 animate-pulse"></div>
           </div>
 
+<<<<<<< HEAD
           <div className="relative z-10 w-full max-w-xl space-y-6 sm:space-y-10">
+=======
+          <div className="relative z-10 w-full max-w-xl space-y-10">
+>>>>>>> 0ecfa5ab331dce1c386264a95e98f295f89583c4
             <div className="space-y-4">
               <div className="w-20 h-20 mx-auto bg-blue-600 rounded-[1.5rem] flex items-center justify-center text-white shadow-2xl shadow-blue-600/40 transform rotate-3 hover:rotate-0 transition-transform duration-500">
                 <MapPin size={32} strokeWidth={2.5} />
