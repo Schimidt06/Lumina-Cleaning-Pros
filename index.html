@@ -1,0 +1,205 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lumina Cleaning Pros | Premium Brazilian Cleaning Services</title>
+    <meta name="description" content="The gold standard in cleaning. Brazilian-owned premium service for residential and commercial spaces in the USA.">
+    
+    <!-- Open Graph / SEO -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Lumina Cleaning Pros | Premium Cleaning">
+    <meta property="og:description" content="Legendary Brazilian cleaning quality. Book your session now.">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        scroll-behavior: smooth;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+      }
+
+      /* ===== KEYFRAMES ===== */
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(40px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes fadeInDown {
+        from { opacity: 0; transform: translateY(-30px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes slideInLeft {
+        from { opacity: 0; transform: translateX(-60px); }
+        to { opacity: 1; transform: translateX(0); }
+      }
+      @keyframes slideInRight {
+        from { opacity: 0; transform: translateX(60px); }
+        to { opacity: 1; transform: translateX(0); }
+      }
+      @keyframes scaleIn {
+        from { opacity: 0; transform: scale(0.85); }
+        to { opacity: 1; transform: scale(1); }
+      }
+      @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+      }
+      @keyframes shimmer {
+        0% { background-position: -200% 0; }
+        100% { background-position: 200% 0; }
+      }
+      @keyframes pulse-glow {
+        0%, 100% { box-shadow: 0 0 0 0 var(--accent-color, #3b82f6); }
+        50% { box-shadow: 0 0 20px 4px var(--accent-color, #3b82f6); }
+      }
+      @keyframes slideUp {
+        from { opacity: 0; transform: translateY(100px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes wiggle {
+        0%, 100% { transform: rotate(0deg); }
+        25% { transform: rotate(-3deg); }
+        75% { transform: rotate(3deg); }
+      }
+      @keyframes bar-grow {
+        from { width: 0; }
+        to { width: 6rem; }
+      }
+
+      /* ===== ANIMATION CLASSES ===== */
+      .animate-fade-in {
+        animation: fadeIn 0.8s ease-out forwards;
+      }
+      .animate-fade-in-up {
+        animation: fadeInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+      .animate-fade-in-down {
+        animation: fadeInDown 0.8s ease-out forwards;
+      }
+      .animate-slide-left {
+        animation: slideInLeft 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+      .animate-slide-right {
+        animation: slideInRight 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+      .animate-scale-in {
+        animation: scaleIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+      .animate-float {
+        animation: float 4s ease-in-out infinite;
+      }
+      .animate-wiggle {
+        animation: wiggle 2s ease-in-out infinite;
+      }
+      .animate-pulse-glow {
+        animation: pulse-glow 2.5s ease-in-out infinite;
+      }
+      .animate-bar-grow {
+        animation: bar-grow 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+      .animate-shimmer {
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+        background-size: 200% 100%;
+        animation: shimmer 3s infinite;
+      }
+
+      /* ===== STAGGER DELAYS ===== */
+      .stagger-1 { transition-delay: 0.05s; animation-delay: 0.05s; }
+      .stagger-2 { transition-delay: 0.1s; animation-delay: 0.1s; }
+      .stagger-3 { transition-delay: 0.18s; animation-delay: 0.18s; }
+      .stagger-4 { transition-delay: 0.26s; animation-delay: 0.26s; }
+      .stagger-5 { transition-delay: 0.34s; animation-delay: 0.34s; }
+      .stagger-6 { transition-delay: 0.42s; animation-delay: 0.42s; }
+      .stagger-7 { transition-delay: 0.5s; animation-delay: 0.5s; }
+      .stagger-8 { transition-delay: 0.58s; animation-delay: 0.58s; }
+
+      /* ===== SCROLL REVEAL ===== */
+      .animate-on-scroll {
+        opacity: 0;
+        transform: translateY(35px);
+        transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: transform, opacity;
+      }
+      .animate-on-scroll-left {
+        opacity: 0;
+        transform: translateX(-50px);
+        transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: transform, opacity;
+      }
+      .animate-on-scroll-right {
+        opacity: 0;
+        transform: translateX(50px);
+        transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: transform, opacity;
+      }
+      .animate-on-scroll-scale {
+        opacity: 0;
+        transform: scale(0.9);
+        transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: transform, opacity;
+      }
+      .animate-revealed {
+        opacity: 1;
+        transform: translateY(0) translateX(0) scale(1);
+      }
+
+      /* ===== HOVER MICRO-ANIMATIONS ===== */
+      .hover-lift {
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+      }
+      .hover-lift:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      }
+
+      /* ===== SCROLLBAR ===== */
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #020617;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #1e293b;
+        border-radius: 10px;
+        border: 2px solid #020617;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #334155;
+      }
+
+      /* ===== MOBILE TOUCH TARGETS ===== */
+      @media (max-width: 640px) {
+        button, a {
+          min-height: 44px;
+        }
+      }
+    </style>
+    <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@19.0.0",
+    "react-dom": "https://esm.sh/react-dom@19.0.0",
+    "react-dom/client": "https://esm.sh/react-dom@19.0.0/client",
+    "lucide-react": "https://esm.sh/lucide-react@0.460.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/"
+  }
+}
+</script>
+  </head>
+  <body class="antialiased bg-slate-950">
+    <div id="root"></div>
+    <script type="module" src="index.tsx"></script>
+  </body>
+</html>
